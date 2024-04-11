@@ -1,0 +1,50 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+.sidebar1{
+    height: 746px;
+    position: sticky;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    
+}
+.userinfor {
+    flex: 3;
+}
+
+.recentorder {
+    flex: 6;
+
+}
+.userimg{
+    flex: 3;
+}
+.userdetail{
+    width: 100%;
+    height: 100%;
+    flex: 7;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+.detailUser{
+    width: 100%;
+    flex: 9;
+    display: flex;
+    flex-direction: column;
+    align-content: start;
+}
+.action{
+    height: 40px;
+    flex: 2;
+}
+.foodsame{
+    height: 200px;
+    width: 150px;
+    border-radius: 5%;
+    cursor: pointer;
+    /* background-color: red; */
+}

@@ -1,0 +1,116 @@
+li:hover::after {
+    content: '';
+    position: absolute;
+    height: 2px;
+    width: 100%;
+    background-color: white;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: 100%;
+    animation: hash 0.3s ease;
+}
+
+li {
+    position: relative;
+}
+
+@keyframes hash {
+    0% {
+        width: 0%;
+    }
+
+    100% {
+        width: 100%;
+    }
+}
+
+.show {
+    display: block;
+}
+
+.dropdown-menu {
+    transform: translate(-28px, 75px);
+}
+
+.ulMenu {
+    position: relative;
+}
+
+.ulMenu::after {
+    content: '';
+    position: absolute;
+    height: 20px;
+    width: 20px;
+    left: 25%;
+    top: -18px;
+    background-color: white;
+    transform: rotate(225deg);
+}
+
+.linav {
+    margin-right: 40px;
+}
+
+/* search bar */
+
+.resultSearch {
+    position: absolute;
+    width: 400px;
+    height: 200px;
+    background-color: whitesmoke;
+    top: 100%;
+    z-index: 5;
+    animation: expandDiv 0.4s ease forwards;
+    border-radius: 5px;
+    display: none;
+}
+
+@keyframes expandDiv {
+    from {
+        height: 0;
+    }
+
+    to {
+        height: 200px;
+    }
+}
+
+@keyframes expandDivHide {
+    from {
+        height: 200px;
+        opacity: 1;
+    }
+
+    to {
+        height: 0;
+        opacity: 0;
+    }
+}
+
+.container-input {
+    cursor: pointer;
+    position: relative;
+}
+
+.input {
+    width: 400px;
+    padding: 10px 0px 10px 40px;
+    border-radius: 9999px;
+    border: solid 1px #333;
+    transition: all .2s ease-in-out;
+    outline: none;
+    opacity: 0.8;
+}
+
+.container-input svg {
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    transform: translate(0, -50%);
+}
+
+.food:hover{
+    background-color: rgb(206, 201, 201);
+    cursor: pointer;
+}

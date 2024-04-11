@@ -1,0 +1,130 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body,
+html {
+    height: 100%;
+    width: 100%;
+}
+
+.content-header {
+    position: relative;
+    height: 100%;
+    background-image: url('https://websitedemos.net/pizzeria-04/wp-content/uploads/sites/791/2021/03/pizzeria-template-hero-bg-img.jpg');
+    border-radius: 0% 0% 48% 48% / 10% 10% 14% 14%;
+    width: 100%;
+
+}
+.div-header{
+    height: 800px;
+    width: 100%;
+    z-index: -1;
+}
+.content-header-child {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: #121212;
+    opacity: 0.6;
+    border-radius: 0% 0% 48% 48% / 10% 10% 14% 14%;
+
+}
+
+header {
+    /* margin-top: 10px; */
+    color: white;
+    opacity: 1;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.bring-to-you {
+    
+    background-image: url('https://websitedemos.net/pizzeria-04/wp-content/uploads/sites/791/2021/03/pizzeria-template-delivery-section-img-bg.jpg');
+}
+
+.food-item {
+    cursor: pointer;
+}
+
+.food-image {
+    transition: transform 0.3s;
+    filter: drop-shadow(0 10px 10px rgba(0, 0, 0, 0.7));
+    /* Thêm hiệu ứng chuyển đổi */
+}
+
+.food-item:hover .food-image {
+    transform: scale(1.1);
+    /* Trồi lên 1.1 lần khi hover */
+}
+
+.btn-view-all:hover {
+    background-color: red;
+    color: white;
+}
+
+.btn_login {
+    height: 40px;
+    width: 170px;
+    border: 2px white solid;
+    border-radius: 6px;
+    background-color: transparent;
+    color: white;
+    z-index: 9;
+}
+
+.btn_login:hover {
+    background-color: white;
+    color: black;
+
+}
+
+.best-pizza {
+
+    /* animation: spin 2s linear infinite; */
+    /* Thêm animation vào div */
+}
+
+/* Animation cho khi hover vào .circle */
+.best-pizza:hover {
+    animation: spin 3s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.img-detail {
+    animation: scale 2s infinite ease-in;
+}
+
+.img-detail:hover {
+    animation-play-state: paused;
+}
+
+@keyframes scale {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.2);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+
+}

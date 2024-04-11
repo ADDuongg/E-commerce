@@ -1,0 +1,197 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    background-color: black;
+}
+
+/* admin page */
+.navbar-admin {
+    background-color: rgb(48, 38, 55);
+}
+
+.item {
+    height: 60px;
+    width: 100%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+}
+
+.item:hover {
+    background-color: rgb(204, 220, 235);
+    color: black
+}
+
+/* .divchart{
+    width: 200px;
+    height: 150px;
+} */
+.divdash {
+    height: 100px;
+    width: 250px;
+    /* background-color: red; */
+    /* margin-right: 20px; */
+    margin-top: 20px;
+    /* margin-bottom: 10px; */
+}
+
+
+#div-table__food {
+    width: 1200px;
+    height: auto;
+}
+
+
+
+
+/* food manegment */
+.table-food {
+    height: auto;
+    width: 1200px;
+}
+
+.imgfood {
+    height: 70px;
+    width: 70px;
+}
+
+/* add food */
+.forminput {
+    position: absolute;
+    left: 50%;
+    top: 10%;
+    transform: translateX(-50%);
+}
+
+.divinput {
+    height: auto;
+    width: 450px;
+}
+
+/* modal */
+.modal-body {
+    display: flex;
+}
+
+.div-image-food {
+    height: 120px;
+    flex: 3;
+}
+
+.div-detail-food {
+    height: 120px;
+    flex: 7;
+    display: flex;
+    justify-content: space-around;
+}
+
+.food-name-price {
+    flex: 8;
+    height: 100%;
+}
+
+.food-plus {
+    flex: 2;
+    height: 100%;
+}
+
+.div-option {
+    position: absolute;
+    height: 100px;
+    width: 120px;
+    bottom: -105px;
+    left: -40px;
+    background-color: transparent;
+    display: none;
+    border-radius: 6px;
+    border: 1px solid black;
+    z-index: 3;
+}
+
+.active {
+    display: block;
+}
+
+.png,
+.pdf {
+    height: 50px;
+    margin-bottom: 0;
+    flex: 1;
+    align-content: center;
+    flex-wrap: wrap;
+    border-radius: 6px;
+
+}
+
+.png:hover {
+    background-color: #fafafa;
+}
+
+.pdf:hover {
+    background-color: #fafafa;
+}
+
+.forminput_account {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.ulMenu {
+    position: relative;
+}
+
+.ulMenu::after {
+    content: '';
+    position: absolute;
+    height: 20px;
+    width: 20px;
+    right: 16%;
+    top: -11px;
+    background-color: #fafafa;
+    transform: rotate(225deg);
+    z-index: -2;
+    display: none;
+}
+
+.active {
+    display: block;
+}
+.inactice{
+    display: none;
+}
+
+.divuser::after {
+    content: '';
+    position: absolute;
+    height: 3px;
+    bottom: 0;
+    width: 90%;
+    background-color: #fafafa;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.show {
+    display: block;
+}
+
+.ul-option {
+    display: none;
+    list-style: none;
+    border-radius: 10px;
+    width: 100px;
+    height: 30px;
+    position: absolute;
+    right: 20px;
+    top: 0;
+    padding: 0;
+    background-color: #fafafa;
+
+}
+

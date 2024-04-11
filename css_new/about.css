@@ -1,0 +1,59 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body,
+html {
+    height: 100%;
+    width: 100%;
+}
+
+.content-header {
+    position: relative;
+    height: 100%;
+    background-image: url('https://websitedemos.net/pizzeria-04/wp-content/uploads/sites/791/2021/03/pizzeria-template-about-header-img-bg.jpg');
+    border-radius: 0% 0% 48% 48% / 10% 10% 14% 14%;
+    width: 100%;
+    
+}
+.div-header{
+    height: 550px; width: 100%; 
+}
+.content-header-child {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: #121212;
+    opacity: 0.6;
+    border-radius: 0% 0% 48% 48% / 10% 10% 14% 14%;
+    
+}
+
+header {
+    /* margin-top: 10px; */
+    color: white;
+    opacity: 1;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.btn_login {
+    height: 40px;
+    width: 170px;
+    border: 2px white solid;
+    border-radius: 6px;
+    background-color: transparent;
+    color: white;
+    z-index: 9;
+}
+
+.btn_login:hover {
+    background-color: white;
+    color: black;
+
+}
