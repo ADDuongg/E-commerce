@@ -68,8 +68,8 @@ if ($result_discount->num_rows > 0) {
                 <div class="content-header-child">
                 </div>
                 <header class=" ">
-                    <div class="d-flex flex-column">
-                        <div class="d-flex justify-content-between" style="width: 100%; max-width: 80%; margin: auto; padding-top: 25px; z-index: 3;">
+                <div class="d-flex flex-column">
+                        <div class="d-flex justify-content-between divHeader">
                             <div class="icon-header" style="width: 170px;">
                                 <i class="fa-brands fa-facebook me-2"></i>
                                 <i class="fa-brands fa-twitter me-2"></i>
@@ -78,13 +78,11 @@ if ($result_discount->num_rows > 0) {
 
                             <div class="navbar-header d-flex flex-column justify-content-center align-content-center flex-wrap" style="width: 1000px;">
                                 <div class="d-flex justify-content-between" style="width: 80%; margin:auto">
-                                    <p style="font-size: 20px;" class="text-center">The Pizzeria</p>
+                                    <p class="text-center pizzas">The Pizzeria</p>
                                     <div class="d-flex" style="position: relative">
                                         <div class="container-input">
                                             <input type="text" placeholder="Search" name="text" class="inputsearch input">
-                                            <svg fill="#000000" width="20px" height="20px" viewBox="0 0 1920 1920" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M790.588 1468.235c-373.722 0-677.647-303.924-677.647-677.647 0-373.722 303.925-677.647 677.647-677.647 373.723 0 677.647 303.925 677.647 677.647 0 373.723-303.924 677.647-677.647 677.647Zm596.781-160.715c120.396-138.692 193.807-319.285 193.807-516.932C1581.176 354.748 1226.428 0 790.588 0S0 354.748 0 790.588s354.748 790.588 790.588 790.588c197.647 0 378.24-73.411 516.932-193.807l516.028 516.142 79.963-79.963-516.142-516.028Z" fill-rule="evenodd"></path>
-                                            </svg>
+
                                         </div>
                                         <div class="resultSearch" style="overflow: hidden;">
                                             <div class="divfoodsearch" style="width: 100%; height:100%;background-color: whitesmoke; overflow-y: scroll;">
@@ -95,7 +93,7 @@ if ($result_discount->num_rows > 0) {
 
                                 </div>
 
-                                <ul class="d-flex justify-content-center mt-5" style="list-style: none; width: 100%; font-size: 20px;">
+                                <ul class="d-flex justify-content-center mt-5 ulNav">
                                     <li style="cursor: pointer" class="home linav">HOME</li>
                                     <li style="cursor: pointer" class="menu linav">OUR MENU</li>
                                     <li style="cursor: pointer" class="about linav">ABOUT</li>
@@ -104,25 +102,29 @@ if ($result_discount->num_rows > 0) {
                                 </ul>
                             </div>
 
-
                             <?php
+
+                            if (isset($_SESSION["user_id"])) {
+                                $id = $_SESSION['user_id'];
+                                $select = "select * from account where user_id = '$id'";
+                                $result = $conn->query($select);
+                                $row = $result->fetch_assoc();
+                            }
+
                             echo isset($_SESSION['user_id']) ? ('<div class="dropdown rounded-circle d-flex justify-content-between" style="height: 80px; width: 120px;">
-                            <img class="btn-dropdown" style="height: 75%; width: 65px; cursor:pointer" src="../public/burger-removebg-preview.png" alt="">
+                            <img class="btn-dropdown rounded-circle" style="height: 75%; width: 65px; cursor:pointer" src="../avatar/' . $row['avatar'] . '" alt="">
         
                             <div class="dropdown-menu">
                             <ul class="ulMenu" aria-labelledby="dropdownMenuButton1" style="list-style: none; padding: 0;">
-                                <li><a class="dropdown-item d-flex justify-content-start" href="./usersetting.php?type=myorder"><i style = "padding: 5px 20px 0 0" class="fa-solid fa-pizza-slice"></i>Your Order</a></li>
-                                <li><a class="dropdown-item d-flex justify-content-start" href="./usersetting.php?type=profile"><i style = "padding: 5px 20px 0 0" class="fa-solid fa-user"></i>Profile</a></li>
-                                <li><a class="dropdown-item d-flex justify-content-start" href="./usersetting.php?type=changepassword"><i style = "padding: 5px 20px 0 0" class="fa-solid fa-lock"></i>Change Password</a></li>
+                                <li><a class="dropdown-item d-flex justify-content-start" href="../component/usersetting.php?type=myorder"><i style = "padding: 5px 20px 0 0" class="fa-solid fa-pizza-slice"></i>Your Order</a></li>
+                                <li><a class="dropdown-item d-flex justify-content-start" href="../component/usersetting.php?type=profile"><i style = "padding: 5px 20px 0 0" class="fa-solid fa-user"></i>Profile</a></li>
+                                <li><a class="dropdown-item d-flex justify-content-start" href="../component/usersetting.php?type=changepassword"><i style = "padding: 5px 20px 0 0" class="fa-solid fa-lock"></i>Change Password</a></li>
                                 <div class = "dropdown-divider p2"></div>
                                 <li><a class="dropdown-item d-flex justify-content-start" href="../logout.php" style = "color: red; font-weight: bold; font-size: 15px"><i style = "padding: 5px 20px 0 0" class="fa-solid fa-right-from-bracket"></i>Log Out</a></li>
                             </ul>
                             </div>
                         </div>
-                        <script>
-                            var dropdowm = document.querySelector(\'.btn-dropdown\');
-                        var dropdowm_menu = document.querySelector(\'.dropdown-menu\');
-                        </script>'
+                        '
 
                             ) : ('<button class="d-flex justify-content-center align-content-center flex-wrap btn_login">
                             LOG IN
@@ -133,6 +135,74 @@ if ($result_discount->num_rows > 0) {
                         </script>'
                             );
                             ?>
+                        </div>
+                        <button class="btn btn-secondary btnNav">
+                            <i class="fa-solid fa-bars"></i>
+                        </button>
+                        <div class="divToggle w-100 px-4 py-3">
+                            <div class="text-end mb-3"><button class="btn btn-secondary btnHide">X</button></div>
+                            <div class="d-flex  flex-column">
+                                <div class="d-flex justify-content-between">
+                                    <div class="icon-header d-flex" style="width: 170px;">
+                                        <i class="fa-brands fa-facebook me-2"></i>
+                                        <i class="fa-brands fa-twitter me-2"></i>
+                                        <i class="fa-brands fa-square-instagram"></i>
+                                    </div>
+                                    <?php
+
+                                    if (isset($_SESSION["user_id"])) {
+                                        $id = $_SESSION['user_id'];
+                                        $select = "select * from account where user_id = '$id'";
+                                        $result = $conn->query($select);
+                                        $row = $result->fetch_assoc();
+                                    }
+
+                                    echo isset($_SESSION['user_id']) ? ('<div class="dropdown rounded-circle d-flex justify-content-between" style="height: 80px; width: 120px;">
+                            <img class="btn-dropdown rounded-circle" style="height: 75%; width: 65px; cursor:pointer" src="../avatar/' . $row['avatar'] . '" alt="">
+        
+                            <div class="dropdown-menu">
+                            <ul class="ulMenu" aria-labelledby="dropdownMenuButton1" style="list-style: none; padding: 0;">
+                                <li><a class="dropdown-item d-flex justify-content-start" href="../component/usersetting.php?type=myorder"><i style = "padding: 5px 20px 0 0" class="fa-solid fa-pizza-slice"></i>Your Order</a></li>
+                                <li><a class="dropdown-item d-flex justify-content-start" href="../component/usersetting.php?type=profile"><i style = "padding: 5px 20px 0 0" class="fa-solid fa-user"></i>Profile</a></li>
+                                <li><a class="dropdown-item d-flex justify-content-start" href="../component/usersetting.php?type=changepassword"><i style = "padding: 5px 20px 0 0" class="fa-solid fa-lock"></i>Change Password</a></li>
+                                <div class = "dropdown-divider p2"></div>
+                                <li><a class="dropdown-item d-flex justify-content-start" href="../logout.php" style = "color: red; font-weight: bold; font-size: 15px"><i style = "padding: 5px 20px 0 0" class="fa-solid fa-right-from-bracket"></i>Log Out</a></li>
+                            </ul>
+                            </div>
+                        </div>
+                        <script>
+                            var dropdowm = document.querySelector(\'.btn-dropdown\');
+                        var dropdowm_menu = document.querySelector(\'.dropdown-menu\');
+                        </script>'
+
+                                    ) : ('<button class="d-flex justify-content-center align-content-center flex-wrap loginbtn btn_login btn_login1">
+                            LOG IN
+                        </button>
+                        <script>
+                            var dropdowm = null;
+                            var dropdowm_menu = null;
+                        </script>'
+                                    );
+                                    ?>
+                                </div>
+                                <div class="">
+                                    <div class="d-flex flex-column w-25 divBar" style="gap: 10px;">
+                                        <div style="cursor: pointer" class="home linav">HOME</div>
+                                        <div style="cursor: pointer" class="menu linav">OUR MENU</div>
+                                        <div style="cursor: pointer" class="about linav">ABOUT</div>
+                                        <div style="cursor: pointer" class="offer linav">OFFER</div>
+                                        <div style="cursor: pointer" class="contact linav">CONTACT</div>
+                                    </div>
+                                </div>
+                                <div class="container-input mt-3 w-100">
+                                    <input type="text" placeholder="Search" name="text" class="inputsearch1 input w-100">
+                                    <div class="resultSearch1 w-100" style="overflow: hidden;">
+                                        <div class="divfoodsearch1" style="width: 100%; height:100%;background-color: whitesmoke; overflow-y: scroll;">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </header>
@@ -157,14 +227,15 @@ if ($result_discount->num_rows > 0) {
                     <div style="height: 60px; width: 3px; background-color: #dedede;"></div>
                 </div>
             </div>
-            <div class="d-flex flex-wrap " style="width: 80%; margin: auto; height: auto; ">
+            <div class="container " style=" margin: auto; height: auto; ">
+            <div class="row g-4">
                 <?php
                 while ($row = $result->fetch_assoc()) {
                     $isDiscount = in_array($row['id'], $discount);
                 ?>
-                    <div class="d-flex flex-wrap justify-content-center divFood" style="width: 30%; height: 250px; margin: 160px auto 0 0; position: relative; padding-top: 50px; border-radius: 10px">
-                        <div style="position: absolute;left: 50%; transform: translateX(-44%); top: -140px; width: 100% ">
-                            <img style="height: 200px; width: 300px;" src="../foodimage/<?php echo $row['image'] ?>" alt="">
+                    <div class="d-flex flex-wrap justify-content-center divFood col-md-4 col-12" style=" margin: 160px auto 0 0; position: relative; padding-top: 50px; border-radius: 10px">
+                        <div style="position: absolute;left: 50%; transform: translateX(-44%); top: -140px; width: 55% ">
+                            <img style="height: 200px; width: 100%;" src="../foodimage/<?php echo $row['image'] ?>" alt="">
                         </div>
                         <!-- div discount -->
                         <?php if ($isDiscount) : ?>
@@ -179,7 +250,7 @@ if ($result_discount->num_rows > 0) {
                                 $discountValue = $row_discount_value['discount'];
                             }
                             ?>
-                            <?php echo '<div style="position: relative; border-radius: 5px; text-align: center; height: 30px; width: 70px; background-color: red; color: white; position: absolute; top: 60px; left: -30px; transform: rotate(30deg); font-weight: bold">' . $discountValue . '%<i class="fa-solid fa-link" style="position: absolute; top: 5px; left: -20px; color: orange; font-size: 25px"></i></div>' ?>
+                            <?php echo '<div style="position: relative; border-radius: 5px; text-align: center; height: 30px; width: 70px; background-color: red; color: white; position: absolute; top: 5px; left: -5px; transform: rotate(30deg); font-weight: bold">' . $discountValue . '%<i class="fa-solid fa-link" style="position: absolute; top: 5px; left: -20px; color: orange; font-size: 25px"></i></div>' ?>
                         <?php endif; ?>
                         <?php
                         ?>
@@ -222,6 +293,7 @@ if ($result_discount->num_rows > 0) {
                 <?php
                 }
                 ?>
+            </div>
             </div>
             <div class="d-flex justify-content-end mt-5" style="margin: auto; width: 80%;">
                 <div class="">

@@ -51,13 +51,13 @@ divBarItems.forEach(item => {
 function handleInputFocus(input, resultSearch) {
     input.addEventListener('focus', () => {
         resultSearch.style.display = 'block';
-        console.log(123);
+        
     });
 }
 function handleLogin(btn) {
     if (btn) {
         btn.addEventListener('click', () => {
-            window.location.href = "../login.php";
+            window.location.href = "/login.php";
         });
     }
 }

@@ -1,6 +1,6 @@
 <?php
 session_start();
-include("../database.php");
+include("./database.php");
 
 
 
@@ -74,9 +74,9 @@ include("../database.php");
         
                             <div class="dropdown-menu">
                             <ul class="ulMenu" aria-labelledby="dropdownMenuButton1" style="list-style: none; padding: 0;">
-                                <li><a class="dropdown-item d-flex justify-content-start" href="./usersetting.php?type=myorder"><i style = "padding: 5px 20px 0 0" class="fa-solid fa-pizza-slice"></i>Your Order</a></li>
-                                <li><a class="dropdown-item d-flex justify-content-start" href="./usersetting.php?type=profile"><i style = "padding: 5px 20px 0 0" class="fa-solid fa-user"></i>Profile</a></li>
-                                <li><a class="dropdown-item d-flex justify-content-start" href="./usersetting.php?type=changepassword"><i style = "padding: 5px 20px 0 0" class="fa-solid fa-lock"></i>Change Password</a></li>
+                                <li><a class="dropdown-item d-flex justify-content-start" href="../component/usersetting.php?type=myorder"><i style = "padding: 5px 20px 0 0" class="fa-solid fa-pizza-slice"></i>Your Order</a></li>
+                                <li><a class="dropdown-item d-flex justify-content-start" href="../component/usersetting.php?type=profile"><i style = "padding: 5px 20px 0 0" class="fa-solid fa-user"></i>Profile</a></li>
+                                <li><a class="dropdown-item d-flex justify-content-start" href="../component/usersetting.php?type=changepassword"><i style = "padding: 5px 20px 0 0" class="fa-solid fa-lock"></i>Change Password</a></li>
                                 <div class = "dropdown-divider p2"></div>
                                 <li><a class="dropdown-item d-flex justify-content-start" href="../logout.php" style = "color: red; font-weight: bold; font-size: 15px"><i style = "padding: 5px 20px 0 0" class="fa-solid fa-right-from-bracket"></i>Log Out</a></li>
                             </ul>
@@ -120,9 +120,9 @@ include("../database.php");
         
                             <div class="dropdown-menu">
                             <ul class="ulMenu" aria-labelledby="dropdownMenuButton1" style="list-style: none; padding: 0;">
-                                <li><a class="dropdown-item d-flex justify-content-start" href="./usersetting.php?type=myorder"><i style = "padding: 5px 20px 0 0" class="fa-solid fa-pizza-slice"></i>Your Order</a></li>
-                                <li><a class="dropdown-item d-flex justify-content-start" href="./usersetting.php?type=profile"><i style = "padding: 5px 20px 0 0" class="fa-solid fa-user"></i>Profile</a></li>
-                                <li><a class="dropdown-item d-flex justify-content-start" href="./usersetting.php?type=changepassword"><i style = "padding: 5px 20px 0 0" class="fa-solid fa-lock"></i>Change Password</a></li>
+                                <li><a class="dropdown-item d-flex justify-content-start" href="../component/usersetting.php?type=myorder"><i style = "padding: 5px 20px 0 0" class="fa-solid fa-pizza-slice"></i>Your Order</a></li>
+                                <li><a class="dropdown-item d-flex justify-content-start" href="../component/usersetting.php?type=profile"><i style = "padding: 5px 20px 0 0" class="fa-solid fa-user"></i>Profile</a></li>
+                                <li><a class="dropdown-item d-flex justify-content-start" href="../component/usersetting.php?type=changepassword"><i style = "padding: 5px 20px 0 0" class="fa-solid fa-lock"></i>Change Password</a></li>
                                 <div class = "dropdown-divider p2"></div>
                                 <li><a class="dropdown-item d-flex justify-content-start" href="../logout.php" style = "color: red; font-weight: bold; font-size: 15px"><i style = "padding: 5px 20px 0 0" class="fa-solid fa-right-from-bracket"></i>Log Out</a></li>
                             </ul>
@@ -374,10 +374,10 @@ include("../database.php");
             </div>
         </div>
 
-        <?php include('../layout/footer.php') ?>
+        <?php include('./layout/footer.php') ?>
     </div>
 
-    <script src="../js/all.js"></script>
+    <script src="./js/all.js"></script>
     <script>
         var dropdowns = document.querySelectorAll('.btn-dropdown');
         var dropdownMenus = document.querySelectorAll('.dropdown-menu');

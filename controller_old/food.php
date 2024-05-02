@@ -1,10 +1,11 @@
 <?php
 include('../database.php');
 
-$sql = "SELECT SUM(numberSold) as number, type from salefigure GROUP BY type ORDER BY type ASC";
+$sql = "SELECT SUM(numberSold) as number, type FROM salefigure GROUP BY type ORDER BY type ASC";
 $result = $conn->query($sql);
-$sql1 = "SELECT SUM(numberSold) as number, nameFood from salefigure GROUP BY nameFood ORDER BY numberSold DESC LIMIT 0, 5";
+$sql1 = "SELECT SUM(numberSold) as number, nameFood FROM salefigure GROUP BY nameFood ORDER BY number DESC LIMIT 0, 5";
 $result1 = $conn->query($sql1);
+
 
 $array = array();
 $foodData = array();

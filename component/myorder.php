@@ -119,6 +119,11 @@ if ($result_discount->num_rows > 0) {
 <script>
     var div_food_orders = document.querySelectorAll('.div-food-order');
     var btn_order_now = document.querySelector('.order-now')
+    hoten = document.querySelector('input[name="hoten"]').value;
+            sdt = document.querySelector('input[name="sdt"]').value;
+            diachi = document.querySelector('input[name="diachi"]').value;
+            email = document.querySelector('input[name="email"]').value;
+            note = document.querySelector('.text-note').value;
     if (btn_order_now) {
         btn_order_now.addEventListener('click', function() {
             window.location.href = "ourMENU.php";
@@ -133,14 +138,23 @@ if ($result_discount->num_rows > 0) {
     var allFood = [];
     var total_price_food = ''
 
+    function validateInformation() {
+    var hoten = document.querySelector('input[name="hoten"]').value;
+    var sdt = document.querySelector('input[name="sdt"]').value;
+    var diachi = document.querySelector('input[name="diachi"]').value;
+    var email = document.querySelector('input[name="email"]').value;
+    var note = document.querySelector('.text-note').value;
 
+    // Kiểm tra xem các trường thông tin đã được điền đầy đủ hay không
+    if (hoten.trim() === '' || sdt.trim() === '' || diachi.trim() === '' || email.trim() === '' || note.trim() === '') {
+        alert('Vui lòng điền đầy đủ thông tin trước khi đặt hàng.');
+        return false; // Không thực hiện hành động nếu thông tin chưa đầy đủ
+    }
+    return true; // Thực hiện hành động nếu thông tin đầy đủ
+}
     document.querySelectorAll('.orderinfor input, .orderinfor textarea').forEach(element => {
         element.addEventListener('change', function() {
-            hoten = document.querySelector('input[name="hoten"]').value;
-            sdt = document.querySelector('input[name="sdt"]').value;
-            diachi = document.querySelector('input[name="diachi"]').value;
-            email = document.querySelector('input[name="email"]').value;
-            note = document.querySelector('.text-note').value;
+            
             allFood.forEach(item => {
                 item.hoten = hoten;
                 item.sdt = sdt;
@@ -165,6 +179,7 @@ if ($result_discount->num_rows > 0) {
         var priceFood = item.querySelector('input[name="price"]').value;
         var btn_cancle = item.querySelector('.btn-cancle')
         var btn_pay = item.querySelector('.btn-pay')
+        
 
         var inputNumberOrder = item.querySelector('input[name="numberorder"]')
         var inputTotal = item.querySelector('input[name="total"]')
@@ -251,7 +266,12 @@ if ($result_discount->num_rows > 0) {
 
     console.log(allFood);
     btnSoldAll.addEventListener('click', function() {
-
+        if(btn_order_now){
+            alert('Bạn chưa đặt món ăn, vui lòng kiểm tra lại')
+        }
+        if (!validateInformation()) {
+        return; // Không thực hiện hành động nếu thông tin không đầy đủ
+    }
         fetch('../controller_old/actionOrder.php', {
                 method: "POST",
                 headers: {
