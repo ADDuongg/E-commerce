@@ -28,7 +28,7 @@ divBarItems.forEach(item => {
         const text = item.textContent.trim().toUpperCase();
         switch (text) {
             case 'HOME':
-                window.location.href = "../component/page.php";
+                window.location.href = "../page.php";
                 break;
             case 'OUR MENU':
                 window.location.href = "../component/ourMENU.php";

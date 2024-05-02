@@ -8,7 +8,7 @@ if(isset($_SESSION["user_id"])){
         echo '<script>window.location.href = "./admin.php";</script>';
     }
     elseif($user_role == 'Khach hang'){
-        echo '<script>window.location.href = "./page.php";</script>';
+        echo '<script>window.location.href = "../page.php";</script>';
     }
     /* echo 'ok'; */
 }

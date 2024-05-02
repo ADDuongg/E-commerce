@@ -36,7 +36,7 @@ if (isset($_POST["Login"])) {
             } else {
 
                 echo '<script>alert("Đăng nhập thành công")</script>';
-                header('Location: ./component/page.php');
+                header('Location: page.php');
                 exit();
             }
         } else {

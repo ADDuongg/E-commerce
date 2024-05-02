@@ -12,7 +12,7 @@ if (isset($_SESSION['user_id'])) {
     $numrow = $resule_food->num_rows;
 } else {
     echo '<script>alert("Bạn chưa đăng nhập nên k thể xem thông tin này")</script>';
-    echo '<script>window.location.href = "page.php"</script>';
+    echo '<script>window.location.href = "../page.php"</script>';
 }
 
 
