@@ -66,6 +66,18 @@ li {
     display: none;
 }
 
+.resultSearch1 {
+    position: absolute;
+    width: 400px;
+    height: 200px;
+    background-color: whitesmoke;
+    top: 100%;
+    z-index: 999;
+    animation: expandDiv 0.4s ease forwards;
+    border-radius: 5px;
+    display: none;
+}
+
 @keyframes expandDiv {
     from {
         height: 0;
@@ -110,7 +122,159 @@ li {
     transform: translate(0, -50%);
 }
 
-.food:hover{
+.food:hover {
     background-color: rgb(206, 201, 201);
     cursor: pointer;
+}
+
+
+
+/* responsive header */
+.divHeader {
+    width: 100%;
+    max-width: 80%;
+    margin: auto;
+    padding-top: 25px;
+    z-index: 3;
+    /* font-size: 10px; */
+}
+
+.titleHeader {
+    font-size: 90px;
+
+}
+
+.descriptionHeader {
+    margin: 0 auto;
+    width: 60%;
+}
+
+.pizzas {
+    font-size: 20px;
+}
+
+.ulNav {
+    list-style: none;
+    width: 100%;
+    font-size: 20px;
+}
+
+.btnNav {
+    visibility: hidden;
+}
+
+.divToggle {
+    position: absolute;
+    top: 0;
+    width: 100vh;
+    background-color: #f7f6f2;
+    color: red;
+    z-index: 99;
+    display: none;
+}
+
+.showDiv {
+    display: block;
+}
+
+.hideDiv {
+    display: none;
+}
+
+.loginbtn {
+    color: black;
+    border: 1px solid black;
+}
+
+.loginbtn:hover {
+    color: white;
+    border: 1px solid white;
+    background-color: black;
+}
+
+.divCircle {
+    margin-top: 15rem
+}
+
+.foodDescription {
+    visibility: block;
+}
+
+.divFirst {
+    background-color: transparent;
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+    height: auto;
+    background-image: url('https://websitedemos.net/pizzeria-04/wp-content/uploads/sites/791/2021/03/pizzeria-template-near-fireplace-img.jpg');
+}
+
+@media (max-width: 1050px) {
+    .divHeader {
+
+        font-size: 12px;
+    }
+
+    .foodDescription {
+        display: none;
+    }
+
+    .ulNav {
+        width: 120%;
+    }
+
+
+
+    .inputsearch {
+        width: 20rem;
+    }
+
+    .pizzas {
+        font-size: 15px;
+    }
+
+    .titleHeader {
+        font-size: 5rem;
+
+    }
+
+    .descriptionHeader {
+        width: 40%;
+    }
+}
+
+@media (max-width: 870px) {
+    .divHeader {
+        visibility: hidden;
+        font-size: 10px;
+    }
+
+    .divFirst {
+        display: flex;
+        justify-content: end;
+    }
+
+    .btnNav {
+        visibility: unset;
+    }
+
+    .titleHeader {
+        font-size: 2rem;
+
+    }
+
+    .divCircle {
+        margin-top: 0
+    }
+
+    .btnNav {
+        display: block;
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+    }
+
+    .descriptionHeader {
+        width: 40%;
+    }
 }

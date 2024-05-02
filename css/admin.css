@@ -162,7 +162,8 @@ body {
 .active {
     display: block;
 }
-.inactice{
+
+.inactice {
     display: none;
 }
 
@@ -195,3 +196,85 @@ body {
 
 }
 
+/* responsive */
+#btnToggle {
+    visibility: hidden;
+}
+
+.sidebarAdmin {
+    padding: 0;
+    display: block;
+    background-color: rgb(48, 38, 55);
+    width: 20%;
+    height: 100vh;
+}
+
+.detailadmin {
+    height: auto;
+    width: 80%;
+    height: 100vh;
+}
+
+.divModalSidebar {
+    height: 100%;
+    width: 100%;
+    display: none;
+    z-index: 999;
+    background-color: rgba(0, 0, 0, 0.5);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.modalSidebar {
+    height: 100%;
+    width: 30rem;
+    background-color: rgb(48, 38, 55);
+    color: white;
+}
+
+.activeModal {
+    display: block;
+}
+
+.btnResetChart {
+    height: 30px;
+    width: 70px;
+    position: absolute;
+    left: 50px;
+    top: -10px;
+    cursor: pointer
+}
+
+@media (max-width: 1200px) {
+
+    #btnToggle {
+        visibility: unset;
+    }
+
+    .action {
+        justify-content: center;
+    }
+
+    .btnResetChart {
+        left: 0;
+    }
+
+    .sidebar-admin {
+        display: none;
+    }
+
+    .sidebarAdmin {
+        display: none;
+    }
+
+    .detailtable {
+        width: 100%;
+    }
+
+    .detailadmin {
+        width: 100%;
+    }
+}

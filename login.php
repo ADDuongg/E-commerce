@@ -28,17 +28,14 @@ if (isset($_POST["Login"])) {
             $session_id = $_SESSION['user_id'];
             $sql = "insert into sessions(id, session) values ('$id', '$session_id')";
             $conn->query($sql);
-            echo '<script>alert("Đăng nhập thành công")</script>';
 
-            // If previous_page is not set, you can redirect to a default page
             if ($user['role'] === "admin") {
-                $_SESSION['authenticated'] = true;
-                $_SESSION['user_id'] = $user['user_id'];
-                $session_id = $_SESSION['user_id'];
                 echo '<script>alert("Đăng nhập thành công")</script>';
                 header('Location: ./component_old/admin.php');
                 exit();
             } else {
+
+                echo '<script>alert("Đăng nhập thành công")</script>';
                 header('Location: ./component/page.php');
                 exit();
             }
@@ -100,7 +97,6 @@ if (isset($_POST["Login"])) {
             <button type="button" onclick="window.location.href='register.php'" class="btn btnLogin btn-primary">Register</button>
         </form>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
 </body>

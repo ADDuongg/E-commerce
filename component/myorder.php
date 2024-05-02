@@ -8,100 +8,108 @@ if ($result_discount->num_rows > 0) {
     }
 }
 ?>
-<div class=" myorder d-flex flex-column justify-content-start" style="  background-color: white; border-radius: 20px; padding: 0 40px 0; height: 700px;">
+<div class=" myorder d-flex flex-column justify-content-start p-3" style="  background-color: white; border-radius: 20px; padding: 0 40px 0; height: auto;">
     <div class="title mb-2 d-flex pt-2" style="">
         <p style="font-size: 40px; font-weight: bold;">Your Cart <i style="font-size: 50px; color: red" class="fa-solid fa-cart-shopping ms-2"></i></p>
     </div>
-    <div style="height: 600px" class="d-flex justify-content-between">
-        <div class=" d-flex justify-content-between flex-column align-content-center pe-3" style="flex: 6; overflow: hidden; height: auto; max-height: 100%;">
-            <div class="border border-1  shadow-sm" action="" method="POST" style="overflow-y: auto; width: 100%; flex: 9; padding:10px 10px; border-radius: 20px;">
-                <?php
-                if ($numrow > 0) {
-                    $idfood1 = uniqid();
-                    while ($foods_order = $resule_food->fetch_assoc()) {
-                        $isDiscount = in_array($foods_order['food_id'], $discount);
-                        if ($isDiscount) {
-                            $originalPrice = $foods_order['current_price'];
-                            $discountedPrice = $originalPrice - ($originalPrice * $discountValue / 100);
+    <div style="height: auto" class="">
+        <div class="container">
+            <div class="row g-3">
+                <div class="col-lg-7 col-12 d-flex justify-content-between flex-column align-content-center pe-3">
+                    <div class="border border-1  shadow-sm" action="" method="POST" style="overflow-y: auto; width: 100%; flex: 9; padding:10px 10px; border-radius: 20px;">
+                        <?php
+                        if ($numrow > 0) {
+                            $idfood1 = uniqid();
+                            while ($foods_order = $resule_food->fetch_assoc()) {
+                                $isDiscount = in_array($foods_order['food_id'], $discount);
+                                if ($isDiscount) {
+                                    $originalPrice = $foods_order['current_price'];
+                                    $discountedPrice = $originalPrice - ($originalPrice * $discountValue / 100);
+                                }
+                                
+                        ?>
+                                <form class="d-flex div-food-order mb-5" action="../controller_old/actionOrder.php" method="POST">
+                                    <img style="height: 100%; width: 25%;" src="../foodimage/<?php echo $foods_order['image'] ?>" alt="">
+                                    <div class="d-flex justify-content-between ps-5" style="width: 70%;">
+                                        <div style="flex: 4">
+                                            <p style="font-weight: bold"><?php echo $foods_order['food_order'] ?></p>
+                                            <p class="totalPriceFood">$ <?php echo $foods_order['total_price'] ?></p>
+                                        </div>
+                                        <div style="width: 100%; display: flex; flex-direction: column; margin-top: 20px; flex: 6">
+                                            <div class="d-flex">
+                                                <input name="price" type="hidden" value="<?php echo $foods_order['current_price'] ?>">
+                                                <button class="me-3 btn btn-primary rounded-circle btn-plus d-flex justify-content-center flex-wrap align-content-center" style="height: 30px; width: 30px;"><i class="fa-solid fa-plus"></i></button>
+                                                <span class="inputNumber border border-1 form-control" style="height: 40px; width: 120px;"><?php echo $foods_order['number_order'] ?></span>
+                                                <button class="ms-3 btn btn-primary rounded-circle btn-minus d-flex justify-content-center flex-wrap align-content-center" style="height: 30px; width: 30px;"><i class="fa-solid fa-minus"></i></button>
+                                                <input type="hidden" value="<?php echo $foods_order['food_id'] ?>" name="foodid">
+                                                <input type="hidden" value="<?php echo $id ?>" name="id_user">
+                                                <input type="hidden" value="<?php echo $foods_order['food_order'] ?>" name="namefood">
+                                                <input type="hidden" value="<?php echo $foods_order['type'] ?>" name="type">
+                                                <input type="hidden" value="<?php echo $foods_order['order_id'] ?>" name="idorder">
+                                                <input type="hidden" id="total-fake" name="total" value="">
+                                                <input type="hidden" id="numberorder-fake" name="numberorder" value="">
+
+                                            </div>
+                                            <div style="margin-top: 10px;" class="d-flex justify-content-end">
+                                                <button type="submit" name="btncancle" style="height: 40px; width: 40px;" class="btn btn-danger me-2 btn-action"><i class="fa-solid fa-trash"></i></button>
+                                                <!-- <button type="submit" name="btnsold" style="height: 40px; width: 70px;" class="btn btn-success btn-action">Pay</button> -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+
+
+
+
+                        <?php
+                            }
+                        } else {
+                            echo "<div class='d-flex'>
+                            Bạn chưa order món nào cả." . "<button class = 'btn btn-primary ms-3 order-now'>Order ngay</button>
+                            
+                            </div>";
                         }
-                ?>
-                        <form class="d-flex div-food-order mb-5" action="../controller_old/actionOrder.php" method="POST">
-                            <img style="height: 100%; width: 25%;" src="../foodimage/<?php echo $foods_order['image'] ?>" alt="">
-                            <div class="d-flex justify-content-between ps-5" style="width: 70%;">
-                                <div style="flex: 4">
-                                    <p style="font-weight: bold"><?php echo $foods_order['food_order'] ?></p>
-                                    <p class="totalPriceFood">$ <?php echo $foods_order['total_price'] ?></p>
-                                </div>
-                                <div style="width: 100%; display: flex; flex-direction: column; margin-top: 20px; flex: 6">
-                                    <div class="d-flex">
-                                        <input name="price" type="hidden" value="<?php echo $foods_order['current_price'] ?>">
-                                        <button class="me-3 btn btn-primary rounded-circle btn-plus d-flex justify-content-center flex-wrap align-content-center" style="height: 30px; width: 30px;"><i class="fa-solid fa-plus"></i></button>
-                                        <span class="inputNumber border border-1 form-control" style="height: 40px; width: 120px;"><?php echo $foods_order['number_order'] ?></span>
-                                        <button class="ms-3 btn btn-primary rounded-circle btn-minus d-flex justify-content-center flex-wrap align-content-center" style="height: 30px; width: 30px;"><i class="fa-solid fa-minus"></i></button>
-                                        <input type="hidden" value="<?php echo $foods_order['food_id'] ?>" name="foodid">
-                                        <input type="hidden" value="<?php echo $id ?>" name="id_user">
-                                        <input type="hidden" value="<?php echo $foods_order['food_order'] ?>" name="namefood">
-                                        <input type="hidden" value="<?php echo $foods_order['type'] ?>" name="type">
-                                        <input type="hidden" value="<?php echo $foods_order['order_id'] ?>" name="idorder">
-                                        <input type="hidden" id="total-fake" name="total" value="">
-                                        <input type="hidden" id="numberorder-fake" name="numberorder" value="">
-
-                                    </div>
-                                    <div style="margin-top: 10px;" class="d-flex justify-content-end">
-                                        <button type="submit" name="btncancle" style="height: 40px; width: 40px;" class="btn btn-danger me-2 btn-action"><i class="fa-solid fa-trash"></i></button>
-                                        <!-- <button type="submit" name="btnsold" style="height: 40px; width: 70px;" class="btn btn-success btn-action">Pay</button> -->
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
+                        ?>
 
 
+                    </div>
+                    <div class="d-flex justify-content-end mb-2 mt-3" style="width: 100%; padding: 0 0; flex: 1">
+                        Total Price: <p class="totalPriceRecepit ms-3" style="font-weight: bold;"></p>
+                        <!-- <button class="btn btn-warning btn-pay-all" style="height: 40px; width: 90px;">Pay all</button> -->
+                    </div>
+                </div>
+                <div class="col-lg-5 col-12 border border-1 p-2 d-flex flex-column justify-content-between">
+                    <!-- Form thông tin đơn hàng -->
+                    <form class="orderinfor" action="../controller_old/actionOrder.php" method="POST" style="flex:7">
+                        <p style="font-weight: bold;">Thông tin đơn hàng</p>
+                        <div class="mb-3">
+                            <label for="hoten" class="form-label">Họ tên</label>
+                            <input name="hoten" type="text" class="form-control" id="hoten" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="sdt" class="form-label">Số điện thoại</label>
+                            <input name="sdt" type="text" class="form-control" id="sdt" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="diachi" class="form-label">Địa chỉ</label>
+                            <input name="diachi" type="text" class="form-control" id="diachi" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input name="email" type="email" class="form-control" id="email" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="note" class="form-label">Note</label>
+                            <textarea name="note" class="form-control text-note" id="note" rows="3" required></textarea>
+                        </div>
 
+                    </form>
+                    <div style="flex:3" class="d-flex justify-content-center">
+                        <button name="btn-pay-all" class="btn btn-pay-all" style="width: 100%; height:40px; background-color: #4e4ed4; color:white">Thanh toán khi nhận hàng</button>
+                    </div>
 
-                <?php
-                    }
-                } else {
-                    echo "Bạn chưa order món nào cả." . "<button class = 'btn btn-primary ms-3 order-now'>Order ngay</button>";
-                }
-                ?>
-
-
+                </div>
             </div>
-            <div class="d-flex justify-content-end mb-2 mt-3" style="width: 100%; padding: 0 0; flex: 1">
-                Total Price: <p class="totalPriceRecepit ms-3" style="font-weight: bold;"></p>
-                <!-- <button class="btn btn-warning btn-pay-all" style="height: 40px; width: 90px;">Pay all</button> -->
-            </div>
-        </div>
-        <div class="border border-1 p-2 d-flex flex-column justify-content-between" style="flex:4; height:100%">
-            <!-- Form thông tin đơn hàng -->
-            <form class="orderinfor" action="../controller_old/actionOrder.php" method="POST" style="flex:7">
-                <p style="font-weight: bold;">Thông tin đơn hàng</p>
-                <div class="mb-3">
-                    <label for="hoten" class="form-label">Họ tên</label>
-                    <input name="hoten" type="text" class="form-control" id="hoten" required>
-                </div>
-                <div class="mb-3">
-                    <label for="sdt" class="form-label">Số điện thoại</label>
-                    <input name="sdt" type="text" class="form-control" id="sdt" required>
-                </div>
-                <div class="mb-3">
-                    <label for="diachi" class="form-label">Địa chỉ</label>
-                    <input name="diachi" type="text" class="form-control" id="diachi" required>
-                </div>
-                <div class="mb-3">
-                    <label for="email" class="form-label">Email</label>
-                    <input name="email" type="email" class="form-control" id="email" required>
-                </div>
-                <div class="mb-3">
-                    <label for="note" class="form-label">Note</label>
-                    <textarea name="note" class="form-control text-note" id="note" rows="3" required></textarea>
-                </div>
-
-            </form>
-            <div style="flex:3" class="d-flex justify-content-center">
-                <button name="btn-pay-all" class="btn btn-pay-all" style="width: 100%; height:40px; background-color: #4e4ed4; color:white">Thanh toán khi nhận hàng</button>
-            </div>
-
         </div>
     </div>
 </div>
@@ -141,7 +149,7 @@ if ($result_discount->num_rows > 0) {
                 item.note = note;
             });
 
-            
+
         });
     });
 
@@ -211,10 +219,11 @@ if ($result_discount->num_rows > 0) {
             totalPriceRecepit.textContent = `$ ${parseFloat(totalPriceFlag.toFixed(2))}`;
             inputNumberOrder.value = current_value
 
-            inputTotal.value = totalPriceRecepit.textContent.replace('$ ', '')
-            total_price_food = parseFloat(current_value * priceFood).toFixed(2);
-            console.log(`this is total_price_food: ${total_price_food}`);
-            updateAllFood();
+            // Tìm index của món hàng hiện tại trong mảng allFood
+            var currentIndex = Array.from(div_food_orders).indexOf(item);
+            // Cập nhật dữ liệu của món hàng hiện tại trong mảng allFood
+            allFood[currentIndex].number_order = current_value;
+            allFood[currentIndex].total_price_food = parseFloat(current_value * priceFood).toFixed(2);
         });
 
         btn_minus.addEventListener('click', function() {
@@ -227,13 +236,13 @@ if ($result_discount->num_rows > 0) {
                 totalPriceRecepit.textContent = `$ ${parseFloat(totalPriceFlag.toFixed(2))}`
                 inputNumberOrder.value = current_value
 
-                inputTotal.value = totalPriceRecepit.textContent.replace('$ ', '')
-                total_price_food = parseFloat(current_value * priceFood).toFixed(2);
-                console.log(`this is total_price_food: ${total_price_food}`);
-                updateAllFood();
+                // Tìm index của món hàng hiện tại trong mảng allFood
+                var currentIndex = Array.from(div_food_orders).indexOf(item);
+                // Cập nhật dữ liệu của món hàng hiện tại trong mảng allFood
+                allFood[currentIndex].number_order = current_value;
+                allFood[currentIndex].total_price_food = parseFloat(current_value * priceFood).toFixed(2);
             }
         });
-
     });
     totalPriceRecepit.textContent = `$ ${parseFloat(totalPriceFlag.toFixed(2))}`
 

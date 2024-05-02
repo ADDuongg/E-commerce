@@ -17,19 +17,14 @@ if (isset($_SESSION['authenticated'])) {
         $number_active = $row['unique_sessions'];
     }
 
-    $admin_select = "select account.*, sessions.session from account RIGHT JOIN sessions on sessions.session = account.user_id";
-    $result_admin = $conn->query($admin_select);
-    while ($admin = $result_admin->fetch_assoc()) {
-        $avatar_admin = $admin['avatar'];
-    }
 
-    $sales = "select SUM(totalPrice) as totalprice1 from salefigure where DAY(date) = $day and MONTH(date) = $month";
+    $sales = "select SUM(totalPrice) as totalprice1 from salefigure where DAY(date) = $day ";
     $result1 = $conn->query($sales);
     while ($row = $result1->fetch_assoc()) {
         $salesfigure = $row['totalprice1'];
         $salesfigure_formatted = number_format($salesfigure, 1);
     }
-    $number = "select SUM(numberSold) as number from salefigure where DAY(date) = $day and MONTH(date) = $month";
+    $number = "select SUM(numberSold) as number from salefigure where DAY(date) = $day ";
     $result2 = $conn->query($number);
     while ($row = $result2->fetch_assoc()) {
         $number_sold = $row['number'];
@@ -55,111 +50,63 @@ if (isset($_SESSION['authenticated'])) {
 </head>
 
 <body>
-    <div class="container-fluid" style="height: 100vh">
-        <div class="row" style="height: 100%;">
-            <div class="col-2 navbar-admin text-white" style="padding: 0">
-                <div class="div1">
-                    <div style="height: 200px; width: 100%;" class="d-flex justify-content-center">
-                        <img style="height: 200px; width: 200px;" src="../public/logo.png" alt="...">
-                    </div>
-                    <div class="detailnav d-flex flex-column align-items-center" style="height: 340px; width: 100%;">
-                        <div class="item home"><i class="fa-solid fa-house pe-3"></i> Trang chủ</div>
-                        <div class="item revenue"><i class="fa-solid fa-arrow-trend-up pe-3"></i> Quản lý doanh thu</div>
-                        <div class="item account"><i class="fa-solid fa-user-tie pe-3"></i> Quản lý tài khoản</div>
-                        <div class="item food"><i class="fa-solid fa-bowl-food pe-3"></i> Quản lý món ăn</div>
-                        <div class="item order"><i class="fa-solid fa-database pe-3"></i> Quản lý đơn hàng</div>
-                        <div class="item data"><i class="fa-solid fa-database pe-3"></i> Thống kê món ăn</div>
-                    </div>
-                </div>
-                <div class="div2" style="height: calc(100% - 540px); position: relative; width: 100%;">
-                    <button class="btn text-danger logout" style="position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);"><i class="fa-solid fa-arrow-right-from-bracket me-3 text-danger"></i><a href="../logout.php" style="text-decoration: none; color: red">Log out</a></button>
-                </div>
-            </div>
-            <div class="col-10 detailadmin" style="padding: 0; position: relative;">
-                <div class="header border-bottom border-3 d-flex flex-column" style="height: 180px; width: 100%; position:sticky; top: 0">
-                    <div class="border-bottom border-1 d-flex justify-content-between" style="height: 50px; width: 100%;">
-                        <p class="ms-5">Dashboard</p>
-                        <div class="me-5 divadmin-profile" style="position: relative;">
-                            <img class="avataradmin" src="../avatar/<?php echo $avatar_admin ?>" alt="" style="height: 50px; width: 50px; cursor: pointer;">
-                        </div>
-                    </div>
-                    <div class="divdashboard d-flex justify-content-around ">
-                        <div class="divactiveuser divdash  border border-1 shadow" style="border-radius: 5%;">
-                            <div class="d-flex align-content-center ps-3" style="height: 100%; width: 100%; flex-wrap: wrap;">Số người đang online: <span class="ps-2"><?php echo $number_active ?></span></div>
-                        </div>
-                        <div class="divrevenue divdash d-flex flex-column border border-1 justify-content-between shadow" style="border-radius: 5%;">
-                            <div class="d-flex justify-content-between ps-2 pe-2 pt-1"><span>Số tiền thu được hôm nay</span><i class="fa-solid fa-circle-info" style="padding-top: 5px;"></i></div>
-                            <div class="d-flex justify-content-between">
-                                <span class="ps-2">Value: <?php echo $salesfigure_formatted ?></span>
-                                <span class="pe-2">Target today: 1000$</span>
-                            </div>
-                            <div class="pb-3 ms-2 me-2">
-                                <div class="progress " style="width: 100%; ">
-                                    <div class="progress-bar" role="progressbar" style="width: <?php echo (($salesfigure * 100) / 1000) ?>%" aria-valuenow="<?php echo $salesfigure ?>" aria-valuemin="0" aria-valuemax="1000"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="divsales divdash border border-1 d-flex flex-column border border-1 justify-content-between shadow" style="border-radius: 5%;">
-                            <div class="d-flex justify-content-between ps-2 pe-2 pt-1"><span>Hôm nay bán được</span><i class="fa-solid fa-circle-info" style="padding-top: 5px;"></i></div>
-                            <div class="d-flex justify-content-between">
-                                <span class="ps-2">Number: <?php echo $number_sold ?>$</span>
-                                <span class="pe-2">Target today: 1000</span>
-                            </div>
-                            <div class="pb-3 ms-2 me-2">
-                                <div class="progress " style="width: 100%; ">
-                                    <div class="progress-bar" role="progressbar" style="width: <?php echo (($number_sold * 100) / 1000) ?>%" aria-valuenow="<?php echo $number_sold ?>" aria-valuemin="0" aria-valuemax="1000"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+    <div class="" style="height: 100vh">
+        <div class="d-flex">
+            <?php include('../layout/sidebar.php') ?>
+            <div class=" detailadmin" >
+               
+                <?php include('../layout/headerAdmin.php') ?>
 
-                <div class="detailtable d-flex justify-content-between" style=" height:calc(100% - 180px);">
-                    <div class="border border-1 d-flex flex-column p-4" style="flex: 7; height: 557px;  ">
-                        <div style="overflow: scroll;">
-                            <!-- <div class="shadow-lg" style="flex: 1; width: 100%; margin-bottom: 2rem;  border: 1px solid black; border-radius: 13px;"> -->
-                            <div class="d-flex mb-4" style="position: relative;">
-                                <div class="divchart" style=" width: 100%; ">
-                                    <canvas id="myChart_revenue"></canvas>
-                                </div>
+                <div class="detailtable mt-5" >
+                    <div class="container">
+                        <div class="row g-3">
+                            <div class="col-lg-8 col-12 border border-1 d-flex flex-column p-4">
+                                <div style="overflow: scroll;">
+                                    <!-- <div class="shadow-lg" style="flex: 1; width: 100%; margin-bottom: 2rem;  border: 1px solid black; border-radius: 13px;"> -->
+                                    <div class="d-flex mb-4" style="position: relative;">
+                                        <div class="divchart" style=" width: 100%; ">
+                                            <canvas id="myChart_revenue"></canvas>
+                                        </div>
 
-                                <ul class="ul-option " style="z-index: 4;">
-                                    <div class="d-flex justify-content-evenly">
-                                        <li><a style="text-decoration: none; color: black" href="./revenueadmin.php"><i class="fa-solid fa-circle-info "></i></a></li>
-                                        <li class="zoom-in" style="cursor:pointer" onclick="zoomIn()"><i class="fa-solid fa-magnifying-glass-plus "></i></li>
-                                        <li class="zoom-out" style="cursor:pointer" onclick="zoomOut()"><i class="fa-solid fa-magnifying-glass-minus "></i></li>
+                                        <ul class="ul-option " style="z-index: 4;">
+                                            <div class="d-flex justify-content-evenly">
+                                                <li><a style="text-decoration: none; color: black" href="./revenueadmin.php"><i class="fa-solid fa-circle-info "></i></a></li>
+                                                <li class="zoom-in" style="cursor:pointer" onclick="zoomIn()"><i class="fa-solid fa-magnifying-glass-plus "></i></li>
+                                                <li class="zoom-out" style="cursor:pointer" onclick="zoomOut()"><i class="fa-solid fa-magnifying-glass-minus "></i></li>
+                                            </div>
+                                        </ul>
+                                        <button class="btn btn-secondary d-flex justify-content-center flex-wrap align-content-center" style="height: 30px; width: 70px; position: absolute; left: 50px; top: 0; cursor: pointer" id="resetButton">Reset</button>
+                                        <p class="setting" style="position: absolute; right: 10px; top: 0; cursor: pointer"><i class="fa-solid fa-ellipsis-vertical"></i>
+                                        </p>
                                     </div>
-                                </ul>
-                                <button class="btn btn-secondary d-flex justify-content-center flex-wrap align-content-center" style="height: 30px; width: 70px; position: absolute; left: 50px; top: 0; cursor: pointer" id="resetButton">Reset</button>
-                                <p class="setting" style="position: absolute; right: 10px; top: 0; cursor: pointer"><i class="fa-solid fa-ellipsis-vertical"></i>
-                                </p>
-                            </div>
 
-                            <!-- </div> -->
-                        </div>
-                    </div>
-                    <div class="border border-1 d-flex flex-column" style="flex: 3;height: 100%; overflow-y: auto; padding: 20px; ">
-                        <div class="d-flex justify-content-between">
-                            <p>Current Users</p>
-                            <button class="btn btn-primary d-flex justify-content-center flex-wrap align-content-center btnuser" style="height: 30px; width: 60px;"><i class="fa-solid fa-magnifying-glass-plus"></i></button>
-                        </div>
-                        <div class="border border-1 shadow-lg" style="height: 100%; width: 100%; border-radius: 10px; overflow-y: auto">
-                            <?php
-                            $select = "select * from account where role = 'Khach hang'";
-                            $result = $conn->query($select);
-                            while ($kh = $result->fetch_assoc()) {
-                            ?>
-                                <div class="ps-3 pe-3 pt-3 pb-2 d-flex justify-content-between divuser " style="position: relative;">
-                                    <img class="rounded-circle" style="flex: 3; height: 80px; width: 80px; border: 1px solid black;" src="../avatar/<?php echo $kh['avatar'] ?>" alt="">
-                                    <div class="d-flex flex-column ms-4 ps-4 border-start border-2 " style="flex: 7;">
-                                        <p><?php echo $kh['username'] ?></p>
-                                        <p><?php echo $kh['email'] ?></p>
-                                    </div>
+                                    <!-- </div> -->
                                 </div>
-                            <?php
-                            }
-                            ?>
+                            </div>
+                            <div class="col-lg-4 col-12 border border-1 d-flex flex-column" style=" overflow-y: auto; padding: 20px; ">
+                                <div class="d-flex justify-content-between">
+                                    <p>Current Users</p>
+                                    <button class="btn btn-primary d-flex justify-content-center flex-wrap align-content-center btnuser" style="height: 30px; width: 60px;"><i class="fa-solid fa-magnifying-glass-plus"></i></button>
+                                </div>
+                                <div class="border border-1 shadow-lg" style="height: 100%; width: 100%; border-radius: 10px; overflow-y: auto">
+                                    <?php
+                                    $select = "select * from account where role = 'Khach hang'";
+                                    $result = $conn->query($select);
+                                    while ($kh = $result->fetch_assoc()) {
+                                    ?>
+                                        <div class="ps-3 pe-3 pt-3 pb-2 d-flex justify-content-between divuser " style="position: relative;">
+                                            <img class="rounded-circle" style="flex: 3; height: 5rem; width: 5rem; border: 1px solid black;" src="../avatar/<?php echo $kh['avatar'] ?>" alt="">
+                                            <div class="d-flex flex-column ms-4 ps-4 border-start border-2 " style="flex: 7;">
+                                                <p><?php echo $kh['username'] ?></p>
+                                                <p><?php echo $kh['email'] ?></p>
+                                            </div>
+                                        </div>
+                                    <?php
+                                    }
+                                    ?>
 
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

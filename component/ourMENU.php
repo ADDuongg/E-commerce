@@ -63,28 +63,32 @@ if ($result_discount->num_rows > 0) {
         include('../layout/header.php')
         ?>
         <!-- food items -->
-        <div class="" style="width: 100%; height: 420px; position: relative;background-color: #f7f6f2">
-            <div class="mt-3 d-flex justify-content-evenly" style="width: 100%; position: absolute; top: -150px;">
-                <div class="d-flex flex-column justify-content-between food-item " style="height: 300px; width: 350px;">
-                    <div class="text-center">
-                        <img class="food-image image-snacks" style="height: 350px; width: 350px;" src="../public/pobcorn.png" alt="...">
+        <div class="" style="width: 100%; height: auto; background-color: #f7f6f2">
+            <div class="mt-3 d-flex justify-content-evenly" style="width: 100%; ">
+                <div class="container">
+                    <div class="row g-5">
+                        <div class="col-lg-4 col-12 d-flex flex-column justify-content-between food-item " style="height: 300px">
+                            <div class="text-center p-4">
+                                <img class="food-image image-snacks" style="height: 350px; width: 350px;" src="../public/pobcorn.png" alt="...">
+                            </div>
+                            <p style="width: 100%; text-align: center; color: red; font-size: 30px; font-weight: bold;">Snacks
+                            </p>
+                        </div>
+                        <div class="col-lg-4 col-12 d-flex flex-column justify-content-between food-item" style="height: 300px;">
+                            <div class="text-center p-4">
+                                <img class="food-image image-fastfood" style="height: 350px; width: 350px;" src="https://websitedemos.net/pizzeria-04/wp-content/uploads/sites/791/2021/03/pizzeria-template-menu-pizza-img.png" alt="...">
+                            </div>
+                            <p style="width: 100%; text-align: center; color: red; font-size: 30px; font-weight: bold;">Fast
+                                Food</p>
+                        </div>
+                        <div class="col-lg-4 col-12 d-flex flex-column justify-content-between food-item " style="height: 300px;">
+                            <div class="text-center p-4">
+                                <img class="food-image image-drink" style="height: 350px; width: 350px;" src="../public/tsmt.png" alt="...">
+                            </div>
+                            <p style="width: 100%; text-align: center; color: red; font-size: 30px; font-weight: bold;">Drink
+                            </p>
+                        </div>
                     </div>
-                    <p style="width: 100%; text-align: center; color: red; font-size: 30px; font-weight: bold;">Snacks
-                    </p>
-                </div>
-                <div class="d-flex flex-column justify-content-between food-item" style="height: 300px; width: 350px; margin-top: 150px;">
-                    <div class="text-center">
-                        <img class="food-image image-fastfood" style="height: 350px; width: 350px;" src="https://websitedemos.net/pizzeria-04/wp-content/uploads/sites/791/2021/03/pizzeria-template-menu-pizza-img.png" alt="...">
-                    </div>
-                    <p style="width: 100%; text-align: center; color: red; font-size: 30px; font-weight: bold;">Fast
-                        Food</p>
-                </div>
-                <div class="d-flex flex-column justify-content-between food-item " style="height: 300px; width: 350px;">
-                    <div class="text-center">
-                        <img class="food-image image-drink" style="height: 350px; width: 350px;" src="../public/tsmt.png" alt="...">
-                    </div>
-                    <p style="width: 100%; text-align: center; color: red; font-size: 30px; font-weight: bold;">Drink
-                    </p>
                 </div>
             </div>
         </div>
@@ -103,71 +107,71 @@ if ($result_discount->num_rows > 0) {
             <div style="width: 80%; margin: auto; text-align: end; padding-top: 20px;"><button class="btn-show-snacks btn-show">View All</button></div>
             <!-- Menu pasta -->
             <div class="d-flex flex-column" style="position: relative;">
-                <div class="d-flex flex-wrap divmenu-fastfood" style="width: 80%; margin: auto; padding-top: 10px; height: 495px; overflow: hidden;">
-                    <?php
-                    /* $result->data_seek(0); */
-                    while ($row = $snacks->fetch_assoc()) {
-                        $isDiscount = in_array($row['id'], $discount);
-                        // Đoạn mã xử lý dữ liệu ở đây
-                        // Ví dụ, bạn có thể truy xuất các trường của mỗi dòng dữ liệu như sau:
-                        $foodName = $row['name'];
-                        $foodPrice = $row['price'];
-                        $foodImage = $row['image'];
-                        $foodDetail = $row['detail'];
+                <div class="container" style="height: auto; padding-top: 10px">
+                    <div class="row g-3">
+                        <?php
+                        while ($row = $snacks->fetch_assoc()) {
+                            $isDiscount = in_array($row['id'], $discount);
 
-                        $discountValue = 0; // Giá trị giảm giá mặc định là 0
-                        $foodId = $row['id'];
-                        $sql_discount_value = "SELECT discount FROM salefood WHERE foodid = '$foodId'";
-                        $result_discount_value = $conn->query($sql_discount_value);
+                            $foodName = $row['name'];
+                            $foodPrice = $row['price'];
+                            $foodImage = $row['image'];
+                            $foodDetail = $row['detail'];
+                            $discountValue = 0;
+                            $foodId = $row['id'];
+                            $sql_discount_value = "SELECT discount FROM salefood WHERE foodid = '$foodId'";
+                            $result_discount_value = $conn->query($sql_discount_value);
 
-                        if ($result_discount_value->num_rows > 0) {
-                            $row_discount_value = $result_discount_value->fetch_assoc();
-                            $discountValue = $row_discount_value['discount'];
-                        }
+                            if ($result_discount_value->num_rows > 0) {
+                                $row_discount_value = $result_discount_value->fetch_assoc();
+                                $discountValue = $row_discount_value['discount'];
+                            }
 
-                        // Tính giá mới sau giảm giá
-                        $originalPrice = $row['price'];
-                        $discountedPrice = $originalPrice - ($originalPrice * $discountValue / 100);
-                    ?>
-                        <div class="d-flex div-food" style="width: 50%; margin-bottom: 50px; height: 210px;">
-                            <img style="height: 120px; width: 170px; border-radius: 10px; flex: 3;" src="../foodimage/<?php echo ($foodImage) ?>" alt="...">
-                            <div class="text-start d-flex flex-column justify-content-between" style="flex: 6; padding-left: 25px;">
-                                <div class="d-flex justify-content-start">
-                                    <p class="d-flex" style="font-weight: bold; font-size: 30px;;"><?php echo $foodName ?></p>
-                                    <?php if ($isDiscount) : ?>
-                                        <?php
-                                        // Truy vấn cơ sở dữ liệu để lấy giá trị giảm giá cho món ăn
-                                        $discountValue = 0; // Giá trị giảm giá mặc định là 0
-                                        $foodId = $row['id'];
-                                        $sql_discount_value = "SELECT discount FROM salefood WHERE foodid = '$foodId'";
-                                        $result_discount_value = $conn->query($sql_discount_value);
-                                        if ($result_discount_value->num_rows > 0) {
-                                            $row_discount_value = $result_discount_value->fetch_assoc();
-                                            $discountValue = $row_discount_value['discount'];
-                                        }
-                                        ?>
-                                        <?php echo '<div style="position: relative; margin-top:3px; border-radius: 5px; text-align: center; height: 30px; width: 70px; background-color: red; color: white; margin-top: 10px; margin-left: 20px; transform: rotate(25deg); font-weight: bold ">' . $discountValue . '%<i class="fa-solid fa-link" style="position: absolute; top: 4px; left: -13px; color: orange; font-size: 20px"></i></div>' ?>
-                                    <?php endif; ?>
-                                </div>
-                                <p style="font-size: 15px;"><?php echo $foodDetail ?></p>
-                                <div class="d-flex justify-content-between" style="width: 100%;">
+                            // Tính giá mới sau giảm giá
+                            $originalPrice = $row['price'];
+                            $discountedPrice = $originalPrice - ($originalPrice * $discountValue / 100);
+                        ?>
+                            <div class="d-flex div-food col-md-6 col-12" style=" margin-bottom: 50px; height: 210px;">
+                                <img style="height: 120px; width: 170px; border-radius: 10px; flex: 3;" src="../foodimage/<?php echo ($foodImage) ?>" alt="...">
+                                <div class="text-start d-flex flex-column justify-content-between" style="flex: 6; padding-left: 25px;">
+                                    <div class="d-flex justify-content-start">
+                                        <p class="d-flex" style="font-weight: bold; font-size: 30px;;"><?php echo $foodName ?></p>
+                                        <?php if ($isDiscount) : ?>
+                                            <?php
+                                            // Truy vấn cơ sở dữ liệu để lấy giá trị giảm giá cho món ăn
+                                            $discountValue = 0; // Giá trị giảm giá mặc định là 0
+                                            $foodId = $row['id'];
+                                            $sql_discount_value = "SELECT discount FROM salefood WHERE foodid = '$foodId'";
+                                            $result_discount_value = $conn->query($sql_discount_value);
+                                            if ($result_discount_value->num_rows > 0) {
+                                                $row_discount_value = $result_discount_value->fetch_assoc();
+                                                $discountValue = $row_discount_value['discount'];
+                                            }
+                                            ?>
+                                            <?php echo '<div style="position: relative; margin-top:3px; border-radius: 5px; text-align: center; height: 30px; width: 70px; background-color: red; color: white; margin-top: 10px; margin-left: 20px; transform: rotate(25deg); font-weight: bold ">' . $discountValue . '%<i class="fa-solid fa-link" style="position: absolute; top: 4px; left: -13px; color: orange; font-size: 20px"></i></div>' ?>
+                                        <?php endif; ?>
+                                    </div>
+                                    <p style="font-size: 15px;"><?php echo $foodDetail ?></p>
+                                    <div class="d-flex justify-content-between" style="width: 100%;">
 
-                                    <p class="d-flex justify-content-center" style="font-size: 20px;">
-                                        <?php if ($discountValue > 0) { ?>
-                                            <span style="text-decoration: line-through; font-weight: bold; color: black; padding-right: 40px;">$ <?php echo $originalPrice ?></span>
-                                            <span style="color: red">$ <?php echo $discountedPrice; ?></span>
-                                        <?php } else { ?>
-                                            <span style="font-weight: bold; color: black; padding-right: 40px;">$ <?php echo $originalPrice ?></span>
-                                        <?php } ?>
-                                    </p>
-                                    <button class="btn btn-success btnadd" style=" width: 30%" type="<?php echo $row['type'] ?>" value='<?php echo $row['id'] ?>'><i style="font-size: 20px; color: white; padding-top: 3px" class="fa-solid fa-cart-shopping"></i></button>
+                                        <p class="d-flex justify-content-center" style="font-size: 20px;">
+                                            <?php if ($discountValue > 0) { ?>
+                                                <span style="text-decoration: line-through; font-weight: bold; color: black; padding-right: 40px;">$ <?php echo $originalPrice ?></span>
+                                                <span style="color: red">$ <?php echo $discountedPrice; ?></span>
+                                            <?php } else { ?>
+                                                <span style="font-weight: bold; color: black; padding-right: 40px;">$ <?php echo $originalPrice ?></span>
+                                            <?php } ?>
+                                        </p>
+                                        <button class="btn btn-success btnadd" style="width: 30%" data-type="<?php echo $row['type'] ?>" value='<?php echo $row['id'] ?>'><i style="font-size: 20px; color: white; padding-top: 3px" class="fa-solid fa-cart-shopping"></i></button>
+
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    <?php
-                    }
-                    /* endwhile; */
-                    ?>
+                        <?php
+                        }
+                        /* endwhile; */
+                        ?>
+                    </div>
 
                 </div>
             </div>
@@ -205,18 +209,116 @@ if ($result_discount->num_rows > 0) {
                 <div style="width: 80%; margin: auto; text-align: end; padding-top: 20px;"><button class="btn-show-drink btn-show">View All</button></div>
 
                 <div class="d-flex flex-column" style="position: relative;">
-                    <div class="d-flex flex-wrap divmenu-fastfood" style="width: 80%; margin: auto; padding-top: 10px; height: 495px; ">
+                    <div class="container" style="height: auto; padding-top: 10px">
+                        <div class="row g-3">
+
+                            <?php
+
+                            while ($row = $drink->fetch_assoc()) {
+                                $isDiscount = in_array($row['id'], $discount);
+
+                                $foodName = $row['name'];
+                                $foodPrice = $row['price'];
+                                $foodImage = $row['image'];
+                                $foodDetail = $row['detail'];
+                                $discountValue = 0;
+                                $foodId = $row['id'];
+                                $sql_discount_value = "SELECT discount FROM salefood WHERE foodid = '$foodId'";
+                                $result_discount_value = $conn->query($sql_discount_value);
+
+                                if ($result_discount_value->num_rows > 0) {
+                                    $row_discount_value = $result_discount_value->fetch_assoc();
+                                    $discountValue = $row_discount_value['discount'];
+                                }
+
+                                // Tính giá mới sau giảm giá
+                                $originalPrice = $row['price'];
+                                $discountedPrice = $originalPrice - ($originalPrice * $discountValue / 100);
+                            ?>
+                                <div class="col-md-6 col-12 d-flex div-food" style=" margin-bottom: 50px; height: 210px;">
+                                    <img style="height: 120px; width: 170px; border-radius: 10px; flex: 3;" src="../foodimage/<?php echo ($foodImage) ?>" alt="...">
+                                    <div class="text-start d-flex flex-column justify-content-between" style="flex: 6; padding-left: 25px;">
+                                        <div class="d-flex justify-content-start">
+                                            <p class="d-flex" style="font-weight: bold; font-size: 30px;;"><?php echo $foodName ?></p>
+                                            <?php if ($isDiscount) : ?>
+                                                <?php
+
+                                                $discountValue = 0;
+                                                $foodId = $row['id'];
+                                                $sql_discount_value = "SELECT discount FROM salefood WHERE foodid = '$foodId'";
+                                                $result_discount_value = $conn->query($sql_discount_value);
+                                                if ($result_discount_value->num_rows > 0) {
+                                                    $row_discount_value = $result_discount_value->fetch_assoc();
+                                                    $discountValue = $row_discount_value['discount'];
+                                                }
+                                                ?>
+                                                <?php echo '<div style="position: relative; margin-top:3px; border-radius: 5px; text-align: center; height: 30px; width: 70px; background-color: red; color: white; margin-top: 10px; margin-left: 20px; transform: rotate(25deg); font-weight: bold ">' . $discountValue . '%<i class="fa-solid fa-link" style="position: absolute; top: 4px; left: -13px; color: orange; font-size: 20px"></i></div>' ?>
+                                            <?php endif; ?>
+                                        </div>
+                                        <p style="font-size: 15px;"><?php echo $foodDetail ?></p>
+                                        <div class="d-flex justify-content-between" style="width: 100%;">
+                                            <p class="d-flex justify-content-center" style="font-size: 20px;">
+                                                <?php if ($discountValue > 0) { ?>
+                                                    <span style="text-decoration: line-through; font-weight: bold; color: black; padding-right: 40px;">$ <?php echo $originalPrice ?></span>
+                                                    <span style="color: red">$ <?php echo $discountedPrice; ?></span>
+                                                <?php } else { ?>
+                                                    <span style="font-weight: bold; color: black; padding-right: 40px;">$ <?php echo $originalPrice ?></span>
+                                                <?php } ?>
+                                            </p>
+                                            <button class="btn btn-success btnadd" style="width: 30%" data-type="<?php echo $row['type'] ?>" value='<?php echo $row['id'] ?>'><i style="font-size: 20px; color: white; padding-top: 3px" class="fa-solid fa-cart-shopping"></i></button>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            <?php
+                            }
+
+                            ?>
+                            <!-- <div class="d-flex justify-content-end" style="margin: auto; width: 80%;">
+                    <div class="">
+                        <nav aria-label="Page navigation example ">
+                            <ul class="pagination">
+                                <li class="page-item"><a class="page-link" href="ourMENU.php?page=<?php echo $prev_page; ?>">Previous</a></li>
+                                <?php
+                                for ($i = 1; $i <= $total_page; $i++) {
+                                    echo '<li class="page-item"><a class="page-link" href="ourMENU.php?page=' . $i . '">' . $i . '</a></li>';
+                                }
+                                ?>
+                                <li class="page-item"><a class="page-link" href="ourMENU.php?page=<?php echo $next_page; ?>">Next</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Fastfood -->
+        <div class="divFastfood" style="height: auto; width: 100%; background-color:#f7f6f2;  margin-top: 100px;">
+            <div class="d-flex justify-content-between" style="width: 80%; margin: 0 auto; padding-top: 150px;">
+                <p style="flex: 4; color: red; font-weight: bold; font-size: 50px;">Fast food</p>
+                <p style="flex: 6; font-size: 20px;">Đồ ăn fast food là một loại thực phẩm nhanh chóng và thuận tiện, thường được cung cấp tại các nhà hàng hoặc quán ăn nhanh </p>
+            </div>
+            <!-- div hash -->
+            <div style="width: 80%; margin: auto; height: 1px; background-color: red;"></div>
+            <div style="width: 80%; margin: auto; text-align: end; padding-top: 20px;"><button class="btn-show-fastfood btn-show">View All</button></div>
+            <!-- Menu pasta -->
+            <div class="d-flex flex-column" style="position: relative;">
+                <div class="container" style="height: auto; padding-top: 10px">
+                    <div class="row g-3">
+
                         <?php
-                        /* $result->data_seek(0); */
-                        while ($row = $drink->fetch_assoc()) {
+
+                        while ($row = $fastfood->fetch_assoc()) {
                             $isDiscount = in_array($row['id'], $discount);
-                            // Đoạn mã xử lý dữ liệu ở đây
-                            // Ví dụ, bạn có thể truy xuất các trường của mỗi dòng dữ liệu như sau:
+
                             $foodName = $row['name'];
                             $foodPrice = $row['price'];
                             $foodImage = $row['image'];
                             $foodDetail = $row['detail'];
-                            $discountValue = 0; // Giá trị giảm giá mặc định là 0
+                            $discountValue = 0;
                             $foodId = $row['id'];
                             $sql_discount_value = "SELECT discount FROM salefood WHERE foodid = '$foodId'";
                             $result_discount_value = $conn->query($sql_discount_value);
@@ -230,9 +332,9 @@ if ($result_discount->num_rows > 0) {
                             $originalPrice = $row['price'];
                             $discountedPrice = $originalPrice - ($originalPrice * $discountValue / 100);
                         ?>
-                            <div class="d-flex div-food" style="width: 50%; margin-bottom: 50px; height: 210px;">
+                            <div class="col-md-6 col-12 d-flex div-food " style="margin-bottom: 50px; height: 210px;">
                                 <img style="height: 120px; width: 170px; border-radius: 10px; flex: 3;" src="../foodimage/<?php echo ($foodImage) ?>" alt="...">
-                                <div class="text-start d-flex flex-column justify-content-between" style="flex: 6; padding-left: 25px;">
+                                <div class="text-start d-flex flex-column justify-content-between" style="flex: 6; padding-left: 25px; position: relative;">
                                     <div class="d-flex justify-content-start">
                                         <p class="d-flex" style="font-weight: bold; font-size: 30px;;"><?php echo $foodName ?></p>
                                         <?php if ($isDiscount) : ?>
@@ -250,6 +352,7 @@ if ($result_discount->num_rows > 0) {
                                             <?php echo '<div style="position: relative; margin-top:3px; border-radius: 5px; text-align: center; height: 30px; width: 70px; background-color: red; color: white; margin-top: 10px; margin-left: 20px; transform: rotate(25deg); font-weight: bold ">' . $discountValue . '%<i class="fa-solid fa-link" style="position: absolute; top: 4px; left: -13px; color: orange; font-size: 20px"></i></div>' ?>
                                         <?php endif; ?>
                                     </div>
+
                                     <p style="font-size: 15px;"><?php echo $foodDetail ?></p>
                                     <div class="d-flex justify-content-between" style="width: 100%;">
                                         <p class="d-flex justify-content-center" style="font-size: 20px;">
@@ -260,7 +363,8 @@ if ($result_discount->num_rows > 0) {
                                                 <span style="font-weight: bold; color: black; padding-right: 40px;">$ <?php echo $originalPrice ?></span>
                                             <?php } ?>
                                         </p>
-                                        <button class="btn btn-success btnadd" style=" width: 30%" type="<?php echo $row['type'] ?>" value='<?php echo $row['id'] ?>'><i style="font-size: 20px; color: white; padding-top: 3px" class="fa-solid fa-cart-shopping"></i></button>
+                                        <button class="btn btn-success btnadd" style="width: 30%" data-type="<?php echo $row['type'] ?>" value='<?php echo $row['id'] ?>'><i style="font-size: 20px; color: white; padding-top: 3px" class="fa-solid fa-cart-shopping"></i></button>
+
                                     </div>
                                 </div>
                             </div>
@@ -268,101 +372,7 @@ if ($result_discount->num_rows > 0) {
                         }
                         /* endwhile; */
                         ?>
-                        <!-- <div class="d-flex justify-content-end" style="margin: auto; width: 80%;">
-                        <div class="">
-                            <nav aria-label="Page navigation example ">
-                                <ul class="pagination">
-                                    <li class="page-item"><a class="page-link" href="ourMENU.php?page=<?php echo $prev_page; ?>">Previous</a></li>
-                                    <?php
-                                    for ($i = 1; $i <= $total_page; $i++) {
-                                        echo '<li class="page-item"><a class="page-link" href="ourMENU.php?page=' . $i . '">' . $i . '</a></li>';
-                                    }
-                                    ?>
-                                    <li class="page-item"><a class="page-link" href="ourMENU.php?page=<?php echo $next_page; ?>">Next</a></li>
-                                </ul>
-                            </nav>
-                        </div>
-                    </div> -->
                     </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Fastfood -->
-        <div class="divFastfood" style="height: auto; width: 100%; background-color:#f7f6f2;  margin-top: 100px;">
-            <div class="d-flex justify-content-between" style="width: 80%; margin: 0 auto; padding-top: 150px;">
-                <p style="flex: 4; color: red; font-weight: bold; font-size: 50px;">Fast food</p>
-                <p style="flex: 6; font-size: 20px;">Đồ ăn fast food là một loại thực phẩm nhanh chóng và thuận tiện, thường được cung cấp tại các nhà hàng hoặc quán ăn nhanh </p>
-            </div>
-            <!-- div hash -->
-            <div style="width: 80%; margin: auto; height: 1px; background-color: red;"></div>
-            <div style="width: 80%; margin: auto; text-align: end; padding-top: 20px;"><button class="btn-show-fastfood btn-show">View All</button></div>
-            <!-- Menu pasta -->
-            <div class="d-flex flex-column" style="position: relative;">
-                <div class="d-flex flex-wrap divmenu-fastfood" style="width: 80%; margin: auto; padding-top: 10px; height: 495px;">
-                    <?php
-                    /* $result->data_seek(0); */
-                    while ($row = $fastfood->fetch_assoc()) {
-                        $isDiscount = in_array($row['id'], $discount);
-                        // Đoạn mã xử lý dữ liệu ở đây
-                        // Ví dụ, bạn có thể truy xuất các trường của mỗi dòng dữ liệu như sau:
-                        $foodName = $row['name'];
-                        $foodPrice = $row['price'];
-                        $foodImage = $row['image'];
-                        $foodDetail = $row['detail'];
-                        $discountValue = 0; // Giá trị giảm giá mặc định là 0
-                        $foodId = $row['id'];
-                        $sql_discount_value = "SELECT discount FROM salefood WHERE foodid = '$foodId'";
-                        $result_discount_value = $conn->query($sql_discount_value);
-
-                        if ($result_discount_value->num_rows > 0) {
-                            $row_discount_value = $result_discount_value->fetch_assoc();
-                            $discountValue = $row_discount_value['discount'];
-                        }
-
-                        // Tính giá mới sau giảm giá
-                        $originalPrice = $row['price'];
-                        $discountedPrice = $originalPrice - ($originalPrice * $discountValue / 100);
-                    ?>
-                        <div class="d-flex div-food " style="width: 50%; margin-bottom: 50px; height: 210px;">
-                            <img style="height: 120px; width: 170px; border-radius: 10px; flex: 3;" src="../foodimage/<?php echo ($foodImage) ?>" alt="...">
-                            <div class="text-start d-flex flex-column justify-content-between" style="flex: 6; padding-left: 25px; position: relative;">
-                                <div class="d-flex justify-content-start">
-                                    <p class="d-flex" style="font-weight: bold; font-size: 30px;;"><?php echo $foodName ?></p>
-                                    <?php if ($isDiscount) : ?>
-                                        <?php
-                                        // Truy vấn cơ sở dữ liệu để lấy giá trị giảm giá cho món ăn
-                                        $discountValue = 0; // Giá trị giảm giá mặc định là 0
-                                        $foodId = $row['id'];
-                                        $sql_discount_value = "SELECT discount FROM salefood WHERE foodid = '$foodId'";
-                                        $result_discount_value = $conn->query($sql_discount_value);
-                                        if ($result_discount_value->num_rows > 0) {
-                                            $row_discount_value = $result_discount_value->fetch_assoc();
-                                            $discountValue = $row_discount_value['discount'];
-                                        }
-                                        ?>
-                                        <?php echo '<div style="position: relative; margin-top:3px; border-radius: 5px; text-align: center; height: 30px; width: 70px; background-color: red; color: white; margin-top: 10px; margin-left: 20px; transform: rotate(25deg); font-weight: bold ">' . $discountValue . '%<i class="fa-solid fa-link" style="position: absolute; top: 4px; left: -13px; color: orange; font-size: 20px"></i></div>' ?>
-                                    <?php endif; ?>
-                                </div>
-
-                                <p style="font-size: 15px;"><?php echo $foodDetail ?></p>
-                                <div class="d-flex justify-content-between" style="width: 100%;">
-                                    <p class="d-flex justify-content-center" style="font-size: 20px;">
-                                        <?php if ($discountValue > 0) { ?>
-                                            <span style="text-decoration: line-through; font-weight: bold; color: black; padding-right: 40px;">$ <?php echo $originalPrice ?></span>
-                                            <span style="color: red">$ <?php echo $discountedPrice; ?></span>
-                                        <?php } else { ?>
-                                            <span style="font-weight: bold; color: black; padding-right: 40px;">$ <?php echo $originalPrice ?></span>
-                                        <?php } ?>
-                                    </p>
-                                    <button class="btn btn-success btnadd" style=" width: 30%" type="<?php echo $row['type'] ?>" value='<?php echo $row['id'] ?>'><i style="font-size: 20px; color: white; padding-top: 3px" class="fa-solid fa-cart-shopping"></i></button>
-                                </div>
-                            </div>
-                        </div>
-                    <?php
-                    }
-                    /* endwhile; */
-                    ?>
                 </div>
             </div>
         </div>
@@ -374,7 +384,7 @@ if ($result_discount->num_rows > 0) {
         var btnadds = document.querySelectorAll('.btnadd')
         btnadds.forEach(btnadd => {
             btnadd.addEventListener('click', function() {
-                window.location.href = `detailfood.php?id=${btnadd.getAttribute('value')}&&type=${btnadd.getAttribute('type')}`
+                window.location.href = `detailfood.php?id=${btnadd.getAttribute('value')}&type=${btnadd.getAttribute('data-type')}`;
             })
         })
         if (dropdowm) {

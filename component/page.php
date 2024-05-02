@@ -27,7 +27,7 @@ include("../database.php");
                 </div>
                 <header class=" ">
                     <div class="d-flex flex-column">
-                        <div class="d-flex justify-content-between" style="width: 100%; max-width: 80%; margin: auto; padding-top: 25px; z-index: 3;">
+                        <div class="d-flex justify-content-between divHeader">
                             <div class="icon-header" style="width: 170px;">
                                 <i class="fa-brands fa-facebook me-2"></i>
                                 <i class="fa-brands fa-twitter me-2"></i>
@@ -36,13 +36,11 @@ include("../database.php");
 
                             <div class="navbar-header d-flex flex-column justify-content-center align-content-center flex-wrap" style="width: 1000px;">
                                 <div class="d-flex justify-content-between" style="width: 80%; margin:auto">
-                                    <p style="font-size: 20px;" class="text-center">The Pizzeria</p>
+                                    <p class="text-center pizzas">The Pizzeria</p>
                                     <div class="d-flex" style="position: relative">
                                         <div class="container-input">
                                             <input type="text" placeholder="Search" name="text" class="inputsearch input">
-                                            <svg fill="#000000" width="20px" height="20px" viewBox="0 0 1920 1920" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M790.588 1468.235c-373.722 0-677.647-303.924-677.647-677.647 0-373.722 303.925-677.647 677.647-677.647 373.723 0 677.647 303.925 677.647 677.647 0 373.723-303.924 677.647-677.647 677.647Zm596.781-160.715c120.396-138.692 193.807-319.285 193.807-516.932C1581.176 354.748 1226.428 0 790.588 0S0 354.748 0 790.588s354.748 790.588 790.588 790.588c197.647 0 378.24-73.411 516.932-193.807l516.028 516.142 79.963-79.963-516.142-516.028Z" fill-rule="evenodd"></path>
-                                            </svg>
+
                                         </div>
                                         <div class="resultSearch" style="overflow: hidden;">
                                             <div class="divfoodsearch" style="width: 100%; height:100%;background-color: whitesmoke; overflow-y: scroll;">
@@ -53,7 +51,7 @@ include("../database.php");
 
                                 </div>
 
-                                <ul class="d-flex justify-content-center mt-5" style="list-style: none; width: 100%; font-size: 20px;">
+                                <ul class="d-flex justify-content-center mt-5 ulNav">
                                     <li style="cursor: pointer" class="home linav">HOME</li>
                                     <li style="cursor: pointer" class="menu linav">OUR MENU</li>
                                     <li style="cursor: pointer" class="about linav">ABOUT</li>
@@ -61,7 +59,6 @@ include("../database.php");
                                     <li style="cursor: pointer" class="contact linav">CONTACT</li>
                                 </ul>
                             </div>
-
 
                             <?php
 
@@ -73,7 +70,53 @@ include("../database.php");
                             }
 
                             echo isset($_SESSION['user_id']) ? ('<div class="dropdown rounded-circle d-flex justify-content-between" style="height: 80px; width: 120px;">
-                            <img class="btn-dropdown" style="height: 75%; width: 65px; cursor:pointer" src="../avatar/' . $row['avatar'] . '" alt="">
+                            <img class="btn-dropdown rounded-circle" style="height: 75%; width: 65px; cursor:pointer" src="../avatar/' . $row['avatar'] . '" alt="">
+        
+                            <div class="dropdown-menu">
+                            <ul class="ulMenu" aria-labelledby="dropdownMenuButton1" style="list-style: none; padding: 0;">
+                                <li><a class="dropdown-item d-flex justify-content-start" href="./usersetting.php?type=myorder"><i style = "padding: 5px 20px 0 0" class="fa-solid fa-pizza-slice"></i>Your Order</a></li>
+                                <li><a class="dropdown-item d-flex justify-content-start" href="./usersetting.php?type=profile"><i style = "padding: 5px 20px 0 0" class="fa-solid fa-user"></i>Profile</a></li>
+                                <li><a class="dropdown-item d-flex justify-content-start" href="./usersetting.php?type=changepassword"><i style = "padding: 5px 20px 0 0" class="fa-solid fa-lock"></i>Change Password</a></li>
+                                <div class = "dropdown-divider p2"></div>
+                                <li><a class="dropdown-item d-flex justify-content-start" href="../logout.php" style = "color: red; font-weight: bold; font-size: 15px"><i style = "padding: 5px 20px 0 0" class="fa-solid fa-right-from-bracket"></i>Log Out</a></li>
+                            </ul>
+                            </div>
+                        </div>
+                        '
+
+                            ) : ('<button class="d-flex justify-content-center align-content-center flex-wrap btn_login">
+                            LOG IN
+                        </button>
+                        <script>
+                            var dropdowm = null;
+                            var dropdowm_menu = null;
+                        </script>'
+                            );
+                            ?>
+                        </div>
+                        <button class="btn btn-secondary btnNav">
+                            <i class="fa-solid fa-bars"></i>
+                        </button>
+                        <div class="divToggle w-100 px-4 py-3">
+                            <div class="text-end mb-3"><button class="btn btn-secondary btnHide">X</button></div>
+                            <div class="d-flex  flex-column">
+                                <div class="d-flex justify-content-between">
+                                    <div class="icon-header d-flex" style="width: 170px;">
+                                        <i class="fa-brands fa-facebook me-2"></i>
+                                        <i class="fa-brands fa-twitter me-2"></i>
+                                        <i class="fa-brands fa-square-instagram"></i>
+                                    </div>
+                                    <?php
+
+                                    if (isset($_SESSION["user_id"])) {
+                                        $id = $_SESSION['user_id'];
+                                        $select = "select * from account where user_id = '$id'";
+                                        $result = $conn->query($select);
+                                        $row = $result->fetch_assoc();
+                                    }
+
+                                    echo isset($_SESSION['user_id']) ? ('<div class="dropdown rounded-circle d-flex justify-content-between" style="height: 80px; width: 120px;">
+                            <img class="btn-dropdown rounded-circle" style="height: 75%; width: 65px; cursor:pointer" src="../avatar/' . $row['avatar'] . '" alt="">
         
                             <div class="dropdown-menu">
                             <ul class="ulMenu" aria-labelledby="dropdownMenuButton1" style="list-style: none; padding: 0;">
@@ -90,25 +133,44 @@ include("../database.php");
                         var dropdowm_menu = document.querySelector(\'.dropdown-menu\');
                         </script>'
 
-                            ) : ('<button class="d-flex justify-content-center align-content-center flex-wrap btn_login">
+                                    ) : ('<button class="d-flex justify-content-center align-content-center flex-wrap loginbtn btn_login btn_login1">
                             LOG IN
                         </button>
                         <script>
                             var dropdowm = null;
                             var dropdowm_menu = null;
                         </script>'
-                            );
-                            ?>
+                                    );
+                                    ?>
+                                </div>
+                                <div class="">
+                                    <div class="d-flex flex-column w-25 divBar" style="gap: 10px;">
+                                        <div style="cursor: pointer" class="home linav">HOME</div>
+                                        <div style="cursor: pointer" class="menu linav">OUR MENU</div>
+                                        <div style="cursor: pointer" class="about linav">ABOUT</div>
+                                        <div style="cursor: pointer" class="offer linav">OFFER</div>
+                                        <div style="cursor: pointer" class="contact linav">CONTACT</div>
+                                    </div>
+                                </div>
+                                <div class="container-input mt-3 w-100">
+                                    <input type="text" placeholder="Search" name="text" class="inputsearch1 input w-100">
+                                    <div class="resultSearch1 w-100" style="overflow: hidden;">
+                                        <div class="divfoodsearch1" style="width: 100%; height:100%;background-color: whitesmoke; overflow-y: scroll;">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </header>
             </div>
         </div>
         <div class="description text-center d-flex flex-column flex-wrap justify-content-center align-content-center" style="width: 1200px; height: 400px;position: absolute; top: 200px; left: 50%; transform: translateX(-50%); color: white;">
-            <p style="font-size: 90px;">
+            <p class="titleHeader">
                 Authentic Italian Pizzeria
             </p>
-            <div class="" style="margin: 0 auto; width: 60%;">
+            <div class="descriptionHeader" style="">
                 Et praesent nulla urna consequat dui arcu cursus diam fringilla libero risus, aliquam diam, aliquam
                 ullamcorper urna pulvinar velit suspendisse aliquam lacus sollicitudin mauris.
             </div>
@@ -119,91 +181,96 @@ include("../database.php");
         </div>
 
         <!-- detail about products -->
-        <div class="div-detail border border-4 mt-2 d-flex justify-content-evenly" style="position: relative; width: 100%; height: 650px; background-color: #f7f6f2;">
+        <div class="div-detail border border-4 mt-2 d-flex justify-content-evenly" style="position: relative; width: 100%; height: auto; background-color: #f7f6f2;">
             <div style="height: 400px; width: 400px;position: absolute; top: -35%; left: 50%; transform: translateX(-50%); z-index: 1;">
                 <img class="best-pizza" style="height: 400px; width: 400px; " src="https://websitedemos.net/pizzeria-04/wp-content/uploads/sites/791/2021/03/pizzeria-template-header-pizza-img.png" alt="...">
             </div>
-            <div class="fresh d-flex flex-column justify-content-center flex-wrap align-content-center" style="height: auto; width: 340px;">
-                <div class="" style="width: 100%; text-align: center;">
-                    <img style="height: 240px; width: 240px;" class="rounded-circle shadow-lg img-detail" src="https://websitedemos.net/pizzeria-04/wp-content/uploads/sites/791/2021/03/pizzeria-template-fresh-ingredients-img.jpg" alt="...">
+            <div class="container-fluid divCircle">
+                <div class="row ">
+                    <div class="col-md-4 col-12 fresh d-flex flex-column justify-content-center flex-wrap align-content-center">
+                        <div class="" style="width: 100%; text-align: center;">
+                            <img style="height: 240px; width: 240px;" class="rounded-circle shadow-lg img-detail" src="https://websitedemos.net/pizzeria-04/wp-content/uploads/sites/791/2021/03/pizzeria-template-fresh-ingredients-img.jpg" alt="...">
+                        </div>
+                        <p style="color: red; font-size: 30px; text-align: center; font-weight: bold;">Fresh Ingredients</p>
+                        <p class="" style="text-align: center;">Risus egestas felis, purus ultricies tortor feugiat aliquam
+                            euismod senectus sed amet felis viverra
+                            mi bibendum.</p>
+                    </div>
+                    <div class="col-md-4 col-12 handmade d-flex flex-column justify-content-center flex-wrap align-content-center">
+                        <div style="width: 100%; text-align: center;">
+                            <img class="rounded-circle img-detail" src="https://websitedemos.net/pizzeria-04/wp-content/uploads/sites/791/2021/03/pizzeria-template-homemade-mozarella.jpg" alt="...">
+                        </div>
+                        <p style="color: red; font-size: 30px; text-align: center; font-weight: bold;">Handmade Mozarella</p>
+                        <p style="text-align: center;">
+                            Feugiat neque, rhoncus suspendisse proin amet aliquet diam pretium condimentum nisl tempus risus
+                            imperdiet egestas sit.
+                        </p>
+                    </div>
+                    <div class="col-md-4 col-12 secret-sauce d-flex flex-column justify-content-center flex-wrap align-content-center">
+                        <div style="width: 100%; text-align: center;">
+                            <img src="https://websitedemos.net/pizzeria-04/wp-content/uploads/sites/791/2021/03/pizzeria-template-secret-recipe-sauce-img.jpg" alt="..." class="rounded-circle img-detail">
+                        </div>
+                        <p style="color: red; font-size: 30px; text-align: center; font-weight: bold;">"Secret Recipe" Sauce</p>
+                        <p style="text-align: center;">
+                            Placerat id sagittis dolor dictum sit ante dui varius dui eu iaculis pellentesque nam lobortis
+                            lectus.
+                        </p>
+                    </div>
                 </div>
-                <p style="color: red; font-size: 30px; text-align: center; font-weight: bold;">Fresh Ingredients</p>
-                <p class="" style="text-align: center;">Risus egestas felis, purus ultricies tortor feugiat aliquam
-                    euismod senectus sed amet felis viverra
-                    mi bibendum.</p>
-            </div>
-            <div class="handmade d-flex flex-column justify-content-center flex-wrap align-content-center" style="height: auto; width: 340px; margin-top: 200px;">
-                <div style="width: 100%; text-align: center;">
-                    <img class="rounded-circle img-detail" src="https://websitedemos.net/pizzeria-04/wp-content/uploads/sites/791/2021/03/pizzeria-template-homemade-mozarella.jpg" alt="...">
-                </div>
-                <p style="color: red; font-size: 30px; text-align: center; font-weight: bold;">Handmade Mozarella</p>
-                <p style="text-align: center;">
-                    Feugiat neque, rhoncus suspendisse proin amet aliquet diam pretium condimentum nisl tempus risus
-                    imperdiet egestas sit.
-                </p>
-            </div>
-            <div class="secret-sauce d-flex flex-column justify-content-center flex-wrap align-content-center" style="height: auto; width: 340px;">
-                <div style="width: 100%; text-align: center;">
-                    <img src="https://websitedemos.net/pizzeria-04/wp-content/uploads/sites/791/2021/03/pizzeria-template-secret-recipe-sauce-img.jpg" alt="..." class="rounded-circle img-detail">
-                </div>
-                <p style="color: red; font-size: 30px; text-align: center; font-weight: bold;">"Secret Recipe" Sauce</p>
-                <p style="text-align: center;">
-                    Placerat id sagittis dolor dictum sit ante dui varius dui eu iaculis pellentesque nam lobortis
-                    lectus.
-                </p>
             </div>
         </div>
 
         <!-- Bring to you -->
-        <div class="bring-to-you" style="width: 100%; height: 450px; position: relative; z-index: -2;">
+        <div class="bring-to-you" style="width: 100%; height: auto; position: relative; z-index: -2;">
             <div class="bg-color" style="position: absolute;top: 0; left: 0;height: 100%; width: 100%; background-color: #121212;
             opacity: 0.7; z-index: -1;">
             </div>
-            <div style="height: 100%; width: 72%; z-index: 1; color: white; opacity: 1; margin: auto;" class="d-flex flex-wrap align-content-between">
-                <div style="height: 100%; width: 400px; padding-top: 70px;">
-                    <p style="font-size: 65px; font-weight: bold;"> Bringing Happiness To You
-                    </p>
-                    <p style="font-weight: bold; font-size: 15px;">Tellus id nisl quis at sollicitudin nisl nisi
-                        tincidunt purus .</p>
-                </div>
-                <div class="d-flex flex-column align-content-center flex-wrap " style=" width: 300px; height: auto; padding-top: 140px;">
-                    <div style="width: 100%;">
-                        <div style="height: 130px; width: 130px; background-color: red; position: relative; margin: auto;" class="rounded-circle ">
-                            <i style=" font-size: 65px; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);" class="fa-solid fa-earth-americas"></i>
-                        </div>
+            <div class="container">
+                <div class="row g-2">
+                    <div class="col-md-4 col-12 text-white" style=" padding-top: 70px;">
+                        <p style="font-size: 65px; font-weight: bold;"> Bringing Happiness To You
+                        </p>
+                        <p style="font-weight: bold; font-size: 15px;">Tellus id nisl quis at sollicitudin nisl nisi
+                            tincidunt purus .</p>
                     </div>
-                    <br>
-                    <p class="text-center" style="font-size: 30px; font-weight: bold; width: 100%;">
-                        Online Delivery
-                    </p>
-                    <br>
-                    <p class="text-center" style="font-size: 20px; font-weight: bold; width: 100%; cursor: pointer;">
-                        ORDER ONLINE ->
-                    </p>
-                </div>
-                <div class="d-flex flex-column align-content-center flex-wrap " style=" width: 300px; height: auto; padding-top: 140px;">
-                    <div style="width: 100%;">
-                        <div style="height: 130px; width: 130px; background-color: red; position: relative; margin: auto;" class="rounded-circle ">
-                            <i style=" font-size: 65px; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);" class="fa-solid fa-box"></i>
+                    <div class="text-white col-md-4 col-12 d-flex flex-column align-content-center flex-wrap " style="  padding-top: 140px;">
+                        <div style="width: 100%;">
+                            <div style="height: 130px; width: 130px; background-color: red; position: relative; margin: auto;" class="rounded-circle ">
+                                <i style=" font-size: 65px; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);" class="fa-solid fa-earth-americas"></i>
+                            </div>
                         </div>
+                        <br>
+                        <p class="text-center" style="font-size: 30px; font-weight: bold; width: 100%;">
+                            Online Delivery
+                        </p>
+                        <br>
+                        <p class="text-center" style="font-size: 20px; font-weight: bold; width: 100%; cursor: pointer;">
+                            ORDER ONLINE ->
+                        </p>
                     </div>
-                    <br>
-                    <p class="text-center" style="font-size: 30px; font-weight: bold; width: 100%;">
-                        Click & Collect
-                    </p>
-                    <br>
-                    <p class="text-center" style="font-size: 20px; font-weight: bold; width: 100%; cursor: pointer;">
-                        TAKEOUT ORDER ->
-                    </p>
+                    <div class="text-white col-md-4 col-12 d-flex flex-column align-content-center flex-wrap " style="  padding-top: 140px;">
+                        <div style="width: 100%;">
+                            <div style="height: 130px; width: 130px; background-color: red; position: relative; margin: auto;" class="rounded-circle ">
+                                <i style=" font-size: 65px; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);" class="fa-solid fa-box"></i>
+                            </div>
+                        </div>
+                        <br>
+                        <p class="text-center" style="font-size: 30px; font-weight: bold; width: 100%;">
+                            Click & Collect
+                        </p>
+                        <br>
+                        <p class="text-center" style="font-size: 20px; font-weight: bold; width: 100%; cursor: pointer;">
+                            TAKEOUT ORDER ->
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
 
 
         <!-- Menu -->
-        <div id="pagemenu" class="mb-2" style="width: 100%; height: 1000px; position: relative;">
-            <div class="bg-color_menu" style="width: 100%; height: 100%; background-color: #f7f6f2 ;position: absolute; top:0; left: 0;border-radius: 0% 0% 48% 48% / 10% 10% 14% 14%; z-index: -1;">
-            </div>
+        <div id="pagemenu" class="mb-2" style="width: 100%; height: auto; position: relative;">
+
             <div class="d-flex flex-column flex-wrap align-content-center" style="height: 80%; width: 100%; z-index: 2; padding-top: 80px;">
                 <p style="color: red; font-weight: bold; font-size: 20px; width: 100%; text-align: center;">Choose your
                     Flavor</p>
@@ -219,27 +286,31 @@ include("../database.php");
                     </button>
                 </div>
             </div>
-            <div class="mt-3 d-flex justify-content-evenly" style="width: 100%; position: absolute; top: 35%;">
-                <div class="d-flex flex-column justify-content-between food-item " style="height: 300px; width: 350px;">
-                    <div class="text-center">
-                        <img class="food-image img-snacks" style="height: 350px; width: 350px;" src="../public/cookie.png" alt="...">
+            <div class="mt-3 d-flex justify-content-evenly" style="width: 100%">
+                <div class="container">
+                    <div class="row g-3">
+                        <div class="col-lg-4 col-12 d-flex flex-column justify-content-between food-item ">
+                            <div class="text-center">
+                                <img class="food-image img-snacks" style="height: 350px; width: 350px;" src="../public/cookie.png" alt="...">
+                            </div>
+                            <p style="width: 100%; text-align: center; color: red; font-size: 30px; font-weight: bold;">Snacks
+                            </p>
+                        </div>
+                        <div class="col-lg-4 col-12 d-flex flex-column justify-content-between food-item">
+                            <div class="text-center">
+                                <img class="food-image img-fastfood" style="height: 350px; width: 350px;" src="https://websitedemos.net/pizzeria-04/wp-content/uploads/sites/791/2021/03/pizzeria-template-menu-pizza-img.png" alt="...">
+                            </div>
+                            <p style="width: 100%; text-align: center; color: red; font-size: 30px; font-weight: bold;">Fast
+                                Food</p>
+                        </div>
+                        <div class="col-lg-4 col-12 d-flex flex-column justify-content-between food-item ">
+                            <div class="text-center">
+                                <img class="food-image img-drink" style="height: 350px; width: 350px;" src="../public/drink.png" alt="...">
+                            </div>
+                            <p style="width: 100%; text-align: center; color: red; font-size: 30px; font-weight: bold;">Drink
+                            </p>
+                        </div>
                     </div>
-                    <p style="width: 100%; text-align: center; color: red; font-size: 30px; font-weight: bold;">Snacks
-                    </p>
-                </div>
-                <div class="d-flex flex-column justify-content-between food-item" style="height: 300px; width: 350px; margin-top: 150px;">
-                    <div class="text-center">
-                        <img class="food-image img-fastfood" style="height: 350px; width: 350px;" src="https://websitedemos.net/pizzeria-04/wp-content/uploads/sites/791/2021/03/pizzeria-template-menu-pizza-img.png" alt="...">
-                    </div>
-                    <p style="width: 100%; text-align: center; color: red; font-size: 30px; font-weight: bold;">Fast
-                        Food</p>
-                </div>
-                <div class="d-flex flex-column justify-content-between food-item " style="height: 300px; width: 350px;">
-                    <div class="text-center">
-                        <img class="food-image img-drink" style="height: 350px; width: 350px;" src="../public/drink.png" alt="...">
-                    </div>
-                    <p style="width: 100%; text-align: center; color: red; font-size: 30px; font-weight: bold;">Drink
-                    </p>
                 </div>
             </div>
         </div>
@@ -308,65 +379,25 @@ include("../database.php");
 
     <script src="../js/all.js"></script>
     <script>
-        /* const input = document.querySelector('.inputsearch');
-        const resultSearch = document.querySelector('.resultSearch');
-        var divfood = document.querySelector('.divfoodsearch')
-        input.addEventListener('focus', function() {
-            resultSearch.style.display = 'block';
-            console.log(123);
+        var dropdowns = document.querySelectorAll('.btn-dropdown');
+        var dropdownMenus = document.querySelectorAll('.dropdown-menu');
+
+        dropdowns.forEach(function(dropdown, index) {
+            dropdown.addEventListener('click', function() {
+                dropdownMenus[index].classList.toggle('show');
+            });
         });
 
-        function updateDiv(data) {
-            var tmp_html = '';
-
-            data.forEach(item => {
-                var price = item['price'];
-                var discountedPrice = item['discount_value'] !== '0' ? Number(price - (price * (item['discount_value'] / 100))) : price;
-
-                var priceClass = item['discount_value'] !== 0 ? 'text-danger' : 'text-secondary'; // Kiểm tra giảm giá và áp dụng class
-
-                tmp_html += `
-            <div class="d-flex justify-content-start mb-2 p-2 food">
-                <img src="../foodimage/${item['image']}" alt="" style="height: 80px; width: 130px; flex: 4">
-                <div class="d-flex flex-column justify-content-between flex-wrap align-items-start ps-2" style="flex: 6">
-                    <p style="color: black; font-weight:bold">${item['name']}</p>
-                    <div class="d-flex justify-content-between" style="width: 100%;">
-                        <p class="${priceClass}" style="font-weight:bold">Giá tiền: $ ${discountedPrice.toFixed(2)}</p>
-                        <a href="../component/detailfood.php?id=${item['id']}&&type=${item['type']}" class="btn btn-success btnaddfood" style="width: 65px; height: 40px; text-decoration:none; color: white"><i class="fa-solid fa-plus"></i></a>
-                    </div>
-                </div>
-            </div>
-        `;
+        // Đóng dropdown menu khi click bên ngoài
+        window.addEventListener('click', function(event) {
+            dropdowns.forEach(function(dropdown, index) {
+                if (!dropdown.contains(event.target)) {
+                    dropdownMenus[index].classList.remove('show');
+                }
             });
-
-            divfood.innerHTML = tmp_html;
-        }
-
-        
-        var inputvalue = ''
-        input.addEventListener('input', function() {
-            inputvalue = input.value
-            fetch(`../controller_old/searchfood.php?search=${inputvalue}`)
-                .then(res => res.json())
-                .then(data => {
-                    console.log(data)
-                    updateDiv(data)
-                })
-                .catch(err => console.log(err))
-        })
-        document.addEventListener('click', function(e) {
-            if (!input.contains(e.target) && !resultSearch.contains(e.target) && input) {
-                resultSearch.style.display = 'none';
-            }
-        }); */
-
-
-        if (dropdowm) {
-            dropdowm.addEventListener('click', function() {
-                dropdowm_menu.classList.toggle('show');
-            });
-        }
+        });
     </script>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
 </body>

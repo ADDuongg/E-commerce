@@ -4,6 +4,11 @@ function setPageInfo($page)
     $pageInfo = ['title' => '', 'description' => ''];
 
     switch ($page) {
+        case 'page':
+            $pageInfo['title'] = 'Authentic Italian Pizzeria';
+            $pageInfo['description'] = 'Et praesent nulla urna consequat dui arcu cursus diam fringilla libero risus, aliquam diam, aliquam ullamcorper urna pulvinar velit suspendisse aliquam lacus sollicitudin mauris.
+            ';
+            break;
         case 'home':
             $pageInfo['title'] = 'Welcome to our home page';
             $pageInfo['description'] = 'Discover our delicious pizzas and more.';

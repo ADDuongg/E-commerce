@@ -76,15 +76,31 @@ if ($result_discount->num_rows > 0) {
                                 <i class="fa-brands fa-square-instagram"></i>
                             </div>
 
-                            <div class="navbar-header d-flex flex-column justify-content-center align-content-center flex-wrap" style="width: 500px;">
-                                <p style="font-size: 20px;" class="text-center">The Pizzeria</p>
-                                <br>
-                                <ul class="d-flex justify-content-between" style="list-style: none; width: 100%; font-size: 20px;">
-                                    <li style="cursor: pointer" class="home">HOME</li>
-                                    <li style="cursor: pointer" class="menu">OUR MENU</li>
-                                    <li style="cursor: pointer" class="about">ABOUT</li>
-                                    <li style="cursor: pointer" class="offer">OFFER</li>
-                                    <li style="cursor: pointer" class="contact">CONTACT</li>
+                            <div class="navbar-header d-flex flex-column justify-content-center align-content-center flex-wrap" style="width: 1000px;">
+                                <div class="d-flex justify-content-between" style="width: 80%; margin:auto">
+                                    <p style="font-size: 20px;" class="text-center">The Pizzeria</p>
+                                    <div class="d-flex" style="position: relative">
+                                        <div class="container-input">
+                                            <input type="text" placeholder="Search" name="text" class="inputsearch input">
+                                            <svg fill="#000000" width="20px" height="20px" viewBox="0 0 1920 1920" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M790.588 1468.235c-373.722 0-677.647-303.924-677.647-677.647 0-373.722 303.925-677.647 677.647-677.647 373.723 0 677.647 303.925 677.647 677.647 0 373.723-303.924 677.647-677.647 677.647Zm596.781-160.715c120.396-138.692 193.807-319.285 193.807-516.932C1581.176 354.748 1226.428 0 790.588 0S0 354.748 0 790.588s354.748 790.588 790.588 790.588c197.647 0 378.24-73.411 516.932-193.807l516.028 516.142 79.963-79.963-516.142-516.028Z" fill-rule="evenodd"></path>
+                                            </svg>
+                                        </div>
+                                        <div class="resultSearch" style="overflow: hidden;">
+                                            <div class="divfoodsearch" style="width: 100%; height:100%;background-color: whitesmoke; overflow-y: scroll;">
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <ul class="d-flex justify-content-center mt-5" style="list-style: none; width: 100%; font-size: 20px;">
+                                    <li style="cursor: pointer" class="home linav">HOME</li>
+                                    <li style="cursor: pointer" class="menu linav">OUR MENU</li>
+                                    <li style="cursor: pointer" class="about linav">ABOUT</li>
+                                    <li style="cursor: pointer" class="offer linav">OFFER</li>
+                                    <li style="cursor: pointer" class="contact linav">CONTACT</li>
                                 </ul>
                             </div>
 

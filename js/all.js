@@ -1,31 +1,86 @@
-var home = document.querySelector('.home')
-var menu = document.querySelector('.menu')
-var about = document.querySelector('.about')
-var offer = document.querySelector('.offer')
-var contact = document.querySelector('.contact')
-var btnlogin = document.querySelector('.btn_login')
-var btn_view_all_menu = document.querySelector('.btn-view-all-menu')
 const input = document.querySelector('.inputsearch');
+const input1 = document.querySelector('.inputsearch1');
 const resultSearch = document.querySelector('.resultSearch');
-var divfood = document.querySelector('.divfoodsearch')
-input.addEventListener('focus', function () {
-    resultSearch.style.display = 'block';
-    console.log(123);
+const resultSearch1 = document.querySelector('.resultSearch1');
+const divfood = document.querySelector('.divfoodsearch');
+const divfood1 = document.querySelector('.divfoodsearch1');
+const divBarItems = document.querySelectorAll('.linav');
+const btnlogin = document.querySelector('.btn_login');
+const btnlogin1 = document.querySelector('.btn_login1');
+const btn_view_all_menu = document.querySelector('.btn-view-all-menu');
+const btnNav = document.querySelector('.btnNav')
+const btnHide = document.querySelector('.btnHide')
+const divToggle = document.querySelector('.divToggle')
+
+if (btnNav) {
+    btnNav.addEventListener('click', function () {
+        divToggle.classList.add('showDiv')
+    })
+}
+if (btnHide) {
+    btnHide.addEventListener('click', function () {
+        divToggle.classList.remove('showDiv')
+    })
+}
+
+divBarItems.forEach(item => {
+    item.addEventListener('click', () => {
+        const text = item.textContent.trim().toUpperCase();
+        switch (text) {
+            case 'HOME':
+                window.location.href = "../component/page.php";
+                break;
+            case 'OUR MENU':
+                window.location.href = "../component/ourMENU.php";
+                break;
+            case 'ABOUT':
+                window.location.href = "../component/about.php";
+                break;
+            case 'OFFER':
+                window.location.href = "../component/offer.php";
+                break;
+            case 'CONTACT':
+                window.location.href = "../component/contact.php";
+                break;
+            default:
+                break;
+        }
+    });
 });
 
-function updateDiv(data) {
-    var tmp_html = '';
+function handleInputFocus(input, resultSearch) {
+    input.addEventListener('focus', () => {
+        resultSearch.style.display = 'block';
+        console.log(123);
+    });
+}
+function handleLogin(btn) {
+    if (btn) {
+        btn.addEventListener('click', () => {
+            window.location.href = "../login.php";
+        });
+    }
+}
+
+handleLogin(btnlogin);
+handleLogin(btnlogin1)
+
+handleInputFocus(input, resultSearch);
+handleInputFocus(input1, resultSearch1);
+
+function updateDiv(data, divfood) {
+    let tmp_html = '';
 
     data.forEach(item => {
-        var price = item['price'];
-        var discountedPrice = item['discount_value'] !== '0' ? Number(price - (price * (item['discount_value'] / 100))) : price;
-
-        var priceClass = item['discount_value'] !== 0 ? 'text-danger' : 'text-secondary'; // Kiểm tra giảm giá và áp dụng class
+        const price = item['price'];
+        const discountedPrice = item['discount_value'] !== '0' ? Number(price - (price * (item['discount_value'] / 100))) : price;
+        const priceClass = item['discount_value'] !== 0 ? 'text-danger' : 'text-secondary';
 
         tmp_html += `
             <div class="d-flex justify-content-start mb-2 p-2 food">
-                <img src="../foodimage/${item['image']}" alt="" style="height: 80px; width: 130px; flex: 4">
-                <div class="d-flex flex-column justify-content-between flex-wrap align-items-start ps-2" style="flex: 6">
+                <div class="" style="flex:3">
+                <img src="../foodimage/${item['image']}" alt="" style="height: 8rem; width: 8rem; "></div>
+                <div class="d-flex flex-column justify-content-start flex-wrap align-items-start ps-2"  style="flex:7">
                     <p style="color: black; font-weight:bold">${item['name']}</p>
                     <div class="d-flex justify-content-between" style="width: 100%;">
                         <p class="${priceClass}" style="font-weight:bold">Giá tiền: $ ${discountedPrice.toFixed(2)}</p>
@@ -39,46 +94,36 @@ function updateDiv(data) {
     divfood.innerHTML = tmp_html;
 }
 
+function handleInput(input, resultSearch, divfood) {
+    let inputvalue = '';
+    input.addEventListener('input', () => {
+        inputvalue = input.value;
+        fetch(`../controller_old/searchfood.php?search=${inputvalue}`)
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                updateDiv(data, divfood);
+            })
+            .catch(err => console.log(err));
+    });
+}
 
-var inputvalue = ''
-input.addEventListener('input', function () {
-    inputvalue = input.value
-    fetch(`../controller_old/searchfood.php?search=${inputvalue}`)
-        .then(res => res.json())
-        .then(data => {
-            console.log(data)
-            updateDiv(data)
-        })
-        .catch(err => console.log(err))
-})
-document.addEventListener('click', function (e) {
+handleInput(input, resultSearch, divfood);
+handleInput(input1, resultSearch1, divfood1);
+
+document.addEventListener('click', e => {
     if (!input.contains(e.target) && !resultSearch.contains(e.target) && input) {
         resultSearch.style.display = 'none';
     }
+    if (!input1.contains(e.target) && !resultSearch1.contains(e.target) && input1) {
+        resultSearch1.style.display = 'none';
+    }
 });
-if (btn_view_all_menu) {
-    btn_view_all_menu.addEventListener('click', function () {
-        window.location.href = '../component/ourMENU.php'
-    })
-}
-home.addEventListener('click', function () {
-    window.location.href = "../component/page.php"
-})
-menu.addEventListener('click', function () {
-    window.location.href = "../component/ourMENU.php"
-})
-about.addEventListener('click', function () {
-    window.location.href = "../component/about.php"
-})
-offer.addEventListener('click', function () {
-    window.location.href = "../component/offer.php"
-})
-contact.addEventListener('click', function () {
-    window.location.href = "../component/contact.php"
-})
 
-if(btnlogin){
-    btnlogin.addEventListener('click', function () {
-        window.location.href = "../login.php";
-    })
+if (btn_view_all_menu) {
+    btn_view_all_menu.addEventListener('click', () => {
+        window.location.href = '../component/ourMENU.php';
+    });
 }
+
+
